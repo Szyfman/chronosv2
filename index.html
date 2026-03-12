@@ -430,6 +430,37 @@
   .streak-play-btn:disabled{background:rgba(201,168,76,.25);color:var(--cream-dim);cursor:default}
   body.light .streak-play-btn:disabled{background:#e0e0e0;color:#aaa}
   .streak-done-msg{font-size:.65rem;color:var(--cream-dim);font-family:'Inter',sans-serif;font-style:italic;text-align:center}
+  .dc-section-title{width:100%;font-family:'Inter',sans-serif;font-size:.65rem;font-weight:700;color:var(--cream-dim);letter-spacing:.1em;text-transform:uppercase;padding-bottom:4px;border-bottom:1px solid rgba(201,168,76,.1)}
+  body.light .dc-section-title{color:#888;border-bottom-color:#e2e8f0}
+  .dc-cal-wrap{width:100%;display:flex;flex-direction:column;gap:20px;padding-bottom:12px}
+  .dc-month-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .dc-nav-btn{background:none;border:1px solid rgba(201,168,76,.2);color:var(--gold);font-size:1.1rem;line-height:1;width:28px;height:28px;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,opacity .15s}
+  .dc-nav-btn:hover:not(:disabled){background:rgba(201,168,76,.1)}
+  .dc-nav-btn:disabled{opacity:.25;cursor:default}
+  body.light .dc-nav-btn{border-color:#d4b87a;color:#b8860b}
+  .dc-cal-cell.future{opacity:.3}
+  .dc-month-block{width:100%;background:var(--bg3);border:1px solid rgba(201,168,76,.1);border-radius:10px;padding:12px 10px;box-sizing:border-box}
+  body.light .dc-month-block{background:#fff;border-color:#e2e8f0}
+  .dc-month-title{font-family:'Inter',sans-serif;font-size:.7rem;font-weight:700;color:var(--gold);letter-spacing:.06em;text-transform:uppercase;text-align:center;flex:1}
+  body.light .dc-month-title{color:#b8860b}
+  .dc-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:3px}
+  .dc-cal-hdr{text-align:center;font-family:'Inter',sans-serif;font-size:.52rem;font-weight:600;color:var(--cream-dim);padding:2px 0;letter-spacing:.06em}
+  .dc-cal-cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:.62rem;font-weight:500;color:var(--cream-dim);border-radius:50%;cursor:default;transition:background .15s}
+  .dc-cal-cell.empty{pointer-events:none}
+  .dc-cal-cell.done{background:var(--gold);color:#0d0c0a;font-weight:700;cursor:pointer}
+  .dc-cal-cell.done:hover{background:#e0b84a}
+  .dc-cal-cell.today:not(.done){border:1.5px solid rgba(201,168,76,.5);color:var(--gold)}
+  .dc-cal-cell.today.done{box-shadow:0 0 0 2px rgba(201,168,76,.4)}
+  body.light .dc-cal-cell{color:#888}
+  body.light .dc-cal-cell.done{background:#c9a84c;color:#fff}
+  body.light .dc-cal-cell.today:not(.done){border-color:#c9a84c;color:#b8860b}
+  .dc-entry-panel{margin-top:8px;border-top:1px solid rgba(201,168,76,.12);padding-top:10px}
+  .dc-entry-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .dc-entry-date{font-family:'Inter',sans-serif;font-size:.62rem;font-weight:600;color:var(--gold)}
+  .dc-entry-score{font-family:'Inter',sans-serif;font-size:.58rem;color:var(--cream-dim)}
+  body.light .dc-entry-date{color:#b8860b}
+  .dc-entry-tl{display:flex;flex-direction:column;gap:4px;max-height:180px;overflow-y:auto;scrollbar-width:none}
+  .dc-entry-tl::-webkit-scrollbar{display:none}
   #history-list{width:100%;max-width:420px;flex:1;overflow-y:auto;padding:12px 18px;scrollbar-width:none}
   #history-list::-webkit-scrollbar{display:none}
   .hp-empty{text-align:center;color:var(--cream-dim);font-size:.63rem;padding:40px 20px;line-height:1.8;font-family:'Inter',sans-serif;font-style:italic}
@@ -1244,6 +1275,10 @@ function selectEra(era,btn){
   btn.classList.add('active');
 }
 function startGame(){ _isDailyChallenge=false;
+  var _hBtnR=document.getElementById('hint-btn');
+  var _sBtnR=document.getElementById('skip-btn');
+  if(_hBtnR) _hBtnR.style.display='';
+  if(_sBtnR) _sBtnR.style.display='';
   document.getElementById('intro').classList.remove('show');
   const cs=document.getElementById('cultures-screen');
   if(cs) cs.classList.remove('show');
@@ -1404,14 +1439,19 @@ function initGame(){
   if(_isDailyChallenge){
     var _dcPool=[...CARDS,...INTERVALS];
     var _rng=_seededRNG(_dailySeed());
-    deck=_seededShuffle(_dcPool,_rng);
-    hints=0;
+    deck=_seededShuffle(_dcPool,_rng).slice(0,18);
+    hints=0; skip=0;
     var _hcEl=document.getElementById('hint-count');
     if(_hcEl) _hcEl.textContent='0';
     for(var _dhi=0;_dhi<3;_dhi++){
       var _dhd=document.getElementById('hd'+_dhi);
       if(_dhd) _dhd.classList.add('used');
     }
+    // Hide hint and skip buttons entirely
+    var _hBtn=document.getElementById('hint-btn');
+    var _sBtn=document.getElementById('skip-btn');
+    if(_hBtn) _hBtn.style.display='none';
+    if(_sBtn) _sBtn.style.display='none';
   }
     // Hide history access during play
   document.getElementById('hist-btn').style.visibility='hidden';
@@ -1846,7 +1886,7 @@ function switchHpTab(tab){
   document.getElementById('hp-tab-streak').textContent=t('tab_streak');
   document.getElementById('history-list').style.display = tab==='timelines' ? '' : 'none';
   document.getElementById('hp-streak').style.display = tab==='streak' ? 'flex' : 'none';
-  if(tab==='streak') renderStreakTab();
+  if(tab==='streak'){ _calViewYear=new Date().getFullYear(); _calViewMonth=new Date().getMonth(); renderStreakTab(); }
 }
 
 // ── STREAK HELPERS ────────────────────────────────────────────────────────
@@ -1858,6 +1898,14 @@ function _dailyKey(date){
 }
 function _isDailyDone(date){
   try{ return !!localStorage.getItem(_dailyKey(date)); }catch(e){ return false; }
+}
+function _getDailyRecord(date){
+  try{
+    var raw=localStorage.getItem(_dailyKey(date));
+    if(!raw) return null;
+    if(raw==='1') return {score:0,placed:0,timeline:[]};
+    return JSON.parse(raw);
+  }catch(e){ return null; }
 }
 function _calcStreak(){
   var today=new Date(); today.setHours(0,0,0,0);
@@ -1898,16 +1946,18 @@ function renderStreakTab(){
   var panel=document.getElementById('hp-streak');
   panel.innerHTML='';
   var st=_calcStreak();
-  // stats
+
+  // ── Streak stats ──────────────────────────────────────────────────────
   var stats=document.createElement('div'); stats.className='streak-stats';
   stats.innerHTML='<div class="streak-stat"><div class="streak-stat-val">'+st.cur+'</div><div class="streak-stat-lbl">🔥 '+t('daily_current_streak')+'</div></div><div class="streak-divider"></div><div class="streak-stat"><div class="streak-stat-val">'+st.longest+'</div><div class="streak-stat-lbl">⭐ '+t('daily_longest_streak')+'</div></div>';
   panel.appendChild(stats);
-  // week grid
+
+  // ── This week grid ────────────────────────────────────────────────────
   var today=new Date(); today.setHours(0,0,0,0);
   var dow=today.getDay();
   var mondayOffset=dow===0?-6:1-dow;
   var monday=new Date(today); monday.setDate(today.getDate()+mondayOffset);
-  var dayNames=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  var dayNames=lang==='pt'?['Seg','Ter','Qua','Qui','Sex','Sáb','Dom']:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
   var week=document.createElement('div'); week.className='streak-week';
   for(var i=0;i<7;i++){
     var day=new Date(monday); day.setDate(monday.getDate()+i);
@@ -1919,7 +1969,8 @@ function renderStreakTab(){
     week.appendChild(dc);
   }
   panel.appendChild(week);
-  // play button
+
+  // ── Play button ───────────────────────────────────────────────────────
   var doneToday=_todayDone();
   var btn=document.createElement('button');
   btn.className='streak-play-btn';
@@ -1932,6 +1983,115 @@ function renderStreakTab(){
     msg.textContent=t('daily_comeback');
     panel.appendChild(msg);
   }
+
+  // ── Monthly calendar with prev/next navigation ───────────────────────
+  var calTitle=document.createElement('div'); calTitle.className='dc-section-title';
+  calTitle.textContent=lang==='pt'?'📅 Calendário de Desafios':'📅 Challenge Calendar';
+  panel.appendChild(calTitle);
+
+  var calWrap=document.createElement('div'); calWrap.className='dc-cal-wrap';
+  calWrap.id='dc-cal-wrap';
+  panel.appendChild(calWrap);
+  _renderCalMonth(_calViewYear, _calViewMonth);
+}
+
+// ── Calendar navigation state ─────────────────────────────────────────────
+var _calViewYear  = new Date().getFullYear();
+var _calViewMonth = new Date().getMonth(); // 0-indexed
+
+function _calNav(dir){
+  _calViewMonth += dir;
+  if(_calViewMonth > 11){ _calViewMonth=0; _calViewYear++; }
+  if(_calViewMonth < 0) { _calViewMonth=11; _calViewYear--; }
+  _renderCalMonth(_calViewYear, _calViewMonth);
+}
+
+function _renderCalMonth(yr, mo){
+  var wrap=document.getElementById('dc-cal-wrap');
+  if(!wrap) return;
+  wrap.innerHTML='';
+
+  var today=new Date(); today.setHours(0,0,0,0);
+  var nowYr=today.getFullYear(); var nowMo=today.getMonth();
+  var isFuture=(yr>nowYr)||(yr===nowYr&&mo>nowMo);
+
+  var monthDate=new Date(yr,mo,1);
+  var monthName=monthDate.toLocaleDateString(lang==='pt'?'pt-BR':'en-US',{month:'long',year:'numeric'});
+
+  var mBlock=document.createElement('div'); mBlock.className='dc-month-block';
+
+  // ── Nav header ──────────────────────────────────────────────────────────
+  var nav=document.createElement('div'); nav.className='dc-month-nav';
+  var prevBtn=document.createElement('button'); prevBtn.className='dc-nav-btn'; prevBtn.textContent='‹';
+  prevBtn.onclick=function(){ _calNav(-1); };
+  var mTitle=document.createElement('div'); mTitle.className='dc-month-title';
+  mTitle.textContent=monthName.charAt(0).toUpperCase()+monthName.slice(1);
+  var nextBtn=document.createElement('button'); nextBtn.className='dc-nav-btn'; nextBtn.textContent='›';
+  nextBtn.disabled=isFuture;
+  nextBtn.onclick=function(){ if(!isFuture) _calNav(1); };
+  nav.appendChild(prevBtn); nav.appendChild(mTitle); nav.appendChild(nextBtn);
+  mBlock.appendChild(nav);
+
+  // ── Day-of-week header ──────────────────────────────────────────────────
+  var hdr=document.createElement('div'); hdr.className='dc-cal-grid';
+  var hdNames=lang==='pt'?['S','T','Q','Q','S','S','D']:['M','T','W','T','F','S','S'];
+  hdNames.forEach(function(n){
+    var h=document.createElement('div'); h.className='dc-cal-hdr'; h.textContent=n;
+    hdr.appendChild(h);
+  });
+  mBlock.appendChild(hdr);
+
+  // ── Calendar grid ────────────────────────────────────────────────────────
+  var grid=document.createElement('div'); grid.className='dc-cal-grid';
+  var firstDow=monthDate.getDay();
+  var offset=firstDow===0?6:firstDow-1;
+  for(var e=0;e<offset;e++){
+    var empty=document.createElement('div'); empty.className='dc-cal-cell empty';
+    grid.appendChild(empty);
+  }
+  var daysInMonth=new Date(yr,mo+1,0).getDate();
+  for(var d=1;d<=daysInMonth;d++){
+    var rec=_getDailyRecord(new Date(yr,mo,d));
+    var cell=document.createElement('div');
+    var dayDate=new Date(yr,mo,d); dayDate.setHours(0,0,0,0);
+    var isFutureDay=dayDate.getTime()>today.getTime();
+    cell.className='dc-cal-cell'+(rec?' done':'')+(isFutureDay?' future':'');
+    if(dayDate.getTime()===today.getTime()) cell.classList.add('today');
+    cell.textContent=d;
+    if(rec){
+      (function(r,cellEl,dayNum){
+        cellEl.onclick=function(){ toggleDailyEntry(cellEl,r,dayNum,yr,mo); };
+      })(rec,cell,d);
+    }
+    grid.appendChild(cell);
+  }
+  mBlock.appendChild(grid);
+  wrap.appendChild(mBlock);
+}
+
+function toggleDailyEntry(cellEl, rec, day, yr, mo){
+  // Remove any open expanded panel in this grid
+  var existing=cellEl.closest('.dc-month-block').querySelector('.dc-entry-panel');
+  if(existing){
+    var wasCell=existing.dataset.cell===(yr+'-'+mo+'-'+day);
+    existing.remove();
+    if(wasCell) return; // tap same cell = collapse
+  }
+  var panel=document.createElement('div'); panel.className='dc-entry-panel';
+  panel.dataset.cell=yr+'-'+mo+'-'+day;
+  var d=new Date(yr,mo,day);
+  var dateStr=d.toLocaleDateString(lang==='pt'?'pt-BR':'en-US',{day:'numeric',month:'short',year:'numeric'});
+  var html='<div class="dc-entry-header"><span class="dc-entry-date">📅 '+dateStr+'</span><span class="dc-entry-score">'+rec.score+' pts · '+rec.placed+' '+(lang==='pt'?'cartas':'cards')+'</span></div>';
+  if(rec.timeline&&rec.timeline.length){
+    html+='<div class="dc-entry-tl">';
+    rec.timeline.forEach(function(c){
+      html+='<div class="ht-card"><div class="ht-dot" style="background:'+(ERA_COLORS[c.era]||'#888')+'"></div><div class="ht-name">'+c.name+'</div><div class="ht-year">'+(c.span||formatYear(c.year))+'</div></div>';
+    });
+    html+='</div>';
+  }
+  panel.innerHTML=html;
+  // Insert after the grid row containing the cell
+  cellEl.closest('.dc-month-block').appendChild(panel);
 }
 
 // ── DAILY CHALLENGE ───────────────────────────────────────────────────────
@@ -1966,14 +2126,35 @@ function startDailyChallenge(){
   eraFilter = 'all';
   livesMode = true;
   _isDailyChallenge = true;
+  // Close all overlays cleanly, same as startGame()
   document.getElementById('history-panel').classList.remove('open');
-  showIntro();
+  document.getElementById('intro').classList.remove('show');
+  var _cs=document.getElementById('cultures-screen');
+  if(_cs) _cs.classList.remove('show');
+  document.getElementById('gameover').classList.remove('show');
+  // Restore hint/skip visibility (will be re-hidden inside initGame daily block)
+  var _hBtnR=document.getElementById('hint-btn');
+  var _sBtnR=document.getElementById('skip-btn');
+  if(_hBtnR) _hBtnR.style.display='';
+  if(_sBtnR) _sBtnR.style.display='';
   initGame();
 }
 
 function _markDailyDone(){
   var today = new Date(); today.setHours(0,0,0,0);
-  try{ localStorage.setItem(_dailyKey(today), '1'); }catch(e){}
+  var record = {
+    score: score,
+    placed: timeline.length,
+    timeline: timeline.map(function(c){
+      return {
+        name: cName(c),
+        year: cardYear(c),
+        span: isInterval(c) ? formatYear(c.startYear)+' – '+formatYear(c.endYear) : null,
+        era: c.era
+      };
+    })
+  };
+  try{ localStorage.setItem(_dailyKey(today), JSON.stringify(record)); }catch(e){}
 }
 
 // ── ERA TAG HELPER ───────────────────────────────────────────────────────
