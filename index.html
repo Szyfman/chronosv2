@@ -439,6 +439,25 @@
   .dc-nav-btn:disabled{opacity:.25;cursor:default}
   body.light .dc-nav-btn{border-color:#d4b87a;color:#b8860b}
   .dc-cal-cell.future{opacity:.3}
+  .dc-month-title-btn{cursor:pointer;border-radius:6px;padding:2px 8px;transition:background .15s}
+  .dc-month-title-btn:hover{background:rgba(201,168,76,.12)}
+  .dc-picker{width:100%;background:var(--bg3);border:1px solid rgba(201,168,76,.15);border-radius:10px;margin-bottom:10px;overflow:hidden;display:flex;flex-direction:column}
+  body.light .dc-picker{background:#f8fafc;border-color:#e2e8f0}
+  .dc-picker-cols{display:flex;height:120px}
+  .dc-picker-col{flex:1;overflow-y:scroll;scroll-snap-type:y mandatory;scrollbar-width:none;position:relative}
+  .dc-picker-col::-webkit-scrollbar{display:none}
+  .dc-picker-col:first-child{border-right:1px solid rgba(201,168,76,.1)}
+  body.light .dc-picker-col:first-child{border-right-color:#e2e8f0}
+  .dc-picker-item{height:40px;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:.72rem;font-weight:500;color:rgba(201,168,76,.35);scroll-snap-align:center;cursor:pointer;transition:color .15s,font-size .15s;user-select:none}
+  .dc-picker-item.active{color:var(--gold);font-weight:800;font-size:.82rem}
+  .dc-picker-item.disabled{opacity:.15;pointer-events:none;cursor:default}
+  body.light .dc-picker-item{color:#ccc}
+  body.light .dc-picker-item.active{color:#b8860b}
+  .dc-picker-highlight{position:absolute;top:40px;left:0;right:0;height:40px;border-top:1px solid rgba(201,168,76,.3);border-bottom:1px solid rgba(201,168,76,.3);pointer-events:none;z-index:2}
+  body.light .dc-picker-highlight{border-color:#d4b87a}
+  .dc-picker-confirm{width:100%;padding:9px 0;background:none;border:none;border-top:1px solid rgba(201,168,76,.1);color:var(--gold);font-family:'Inter',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;cursor:pointer;transition:background .15s}
+  .dc-picker-confirm:hover{background:rgba(201,168,76,.08)}
+  body.light .dc-picker-confirm{color:#b8860b;border-top-color:#e2e8f0}
   .dc-month-block{width:100%;background:var(--bg3);border:1px solid rgba(201,168,76,.1);border-radius:10px;padding:12px 10px;box-sizing:border-box}
   body.light .dc-month-block{background:#fff;border-color:#e2e8f0}
   .dc-month-title{font-family:'Inter',sans-serif;font-size:.7rem;font-weight:700;color:var(--gold);letter-spacing:.06em;text-transform:uppercase;text-align:center;flex:1}
@@ -1247,6 +1266,15 @@ function setLang(l,btn){
   document.getElementById('tut-s3').textContent=t('tut_s3');
   document.getElementById('tut-s4').textContent=t('tut_s4');
   document.getElementById('tut-btn').textContent=t('tut_btn');
+  // Re-render streak tab if currently open
+  if(document.getElementById('history-panel').classList.contains('open') && _hpTab==='streak'){
+    renderStreakTab();
+  }
+  // Update tab labels regardless
+  var _tl=document.getElementById('hp-tab-timelines');
+  var _ts=document.getElementById('hp-tab-streak');
+  if(_tl) _tl.textContent=t('tab_timelines');
+  if(_ts) _ts.textContent=t('tab_streak');
 }
 // Which game eras map to each filter
 const ERA_FILTER_MAP={
@@ -1996,6 +2024,7 @@ function renderStreakTab(){
 }
 
 // ── Calendar navigation state ─────────────────────────────────────────────
+var _CAL_MIN_YEAR=2026; var _CAL_MIN_MONTH=2; // March 2026 (0-indexed)
 var _calViewYear  = new Date().getFullYear();
 var _calViewMonth = new Date().getMonth(); // 0-indexed
 
@@ -2003,6 +2032,10 @@ function _calNav(dir){
   _calViewMonth += dir;
   if(_calViewMonth > 11){ _calViewMonth=0; _calViewYear++; }
   if(_calViewMonth < 0) { _calViewMonth=11; _calViewYear--; }
+  // Clamp to min
+  if(_calViewYear<_CAL_MIN_YEAR||(_calViewYear===_CAL_MIN_YEAR&&_calViewMonth<_CAL_MIN_MONTH)){
+    _calViewYear=_CAL_MIN_YEAR; _calViewMonth=_CAL_MIN_MONTH;
+  }
   _renderCalMonth(_calViewYear, _calViewMonth);
 }
 
@@ -2022,10 +2055,14 @@ function _renderCalMonth(yr, mo){
 
   // ── Nav header ──────────────────────────────────────────────────────────
   var nav=document.createElement('div'); nav.className='dc-month-nav';
+  var isAtMin=(yr===_CAL_MIN_YEAR&&mo===_CAL_MIN_MONTH);
   var prevBtn=document.createElement('button'); prevBtn.className='dc-nav-btn'; prevBtn.textContent='‹';
+  prevBtn.disabled=isAtMin;
   prevBtn.onclick=function(){ _calNav(-1); };
-  var mTitle=document.createElement('div'); mTitle.className='dc-month-title';
+  var mTitle=document.createElement('div'); mTitle.className='dc-month-title dc-month-title-btn';
   mTitle.textContent=monthName.charAt(0).toUpperCase()+monthName.slice(1);
+  mTitle.title=lang==='pt'?'Ir para mês/ano':'Jump to month/year';
+  mTitle.onclick=function(){ _toggleCalPicker(yr, mo, mBlock); };
   var nextBtn=document.createElement('button'); nextBtn.className='dc-nav-btn'; nextBtn.textContent='›';
   nextBtn.disabled=isFuture;
   nextBtn.onclick=function(){ if(!isFuture) _calNav(1); };
@@ -2069,6 +2106,96 @@ function _renderCalMonth(yr, mo){
   wrap.appendChild(mBlock);
 }
 
+
+function _toggleCalPicker(curYr, curMo, mBlock){
+  var existing=mBlock.querySelector('.dc-picker');
+  if(existing){ existing.remove(); return; }
+
+  var today=new Date(); var nowYr=today.getFullYear(); var nowMo=today.getMonth();
+  var selYr=curYr; var selMo=curMo;
+
+  var monthNames=lang==='pt'
+    ?['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro']
+    :['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  var picker=document.createElement('div'); picker.className='dc-picker';
+  var cols=document.createElement('div'); cols.className='dc-picker-cols';
+
+  // ── Build a drum-roll column: 3 visible items, center = selected ─────
+  function makeCol(items, selectedIdx, onSelect){
+    var col=document.createElement('div'); col.className='dc-picker-col';
+    // highlight bar (position:absolute, sits at top:40px = second row)
+    var hl=document.createElement('div'); hl.className='dc-picker-highlight'; col.appendChild(hl);
+    // top spacer = 1 item height so first item can center
+    var padTop=document.createElement('div'); padTop.style.cssText='height:40px;flex-shrink:0;scroll-snap-align:none'; col.appendChild(padTop);
+    items.forEach(function(item, i){
+      var el=document.createElement('div');
+      el.className='dc-picker-item'+(i===selectedIdx?' active':'')+(item.disabled?' disabled':'');
+      el.textContent=item.label;
+      el.dataset.idx=i;
+      el.onclick=function(){
+        col.querySelectorAll('.dc-picker-item').forEach(function(e){ e.classList.remove('active'); });
+        el.classList.add('active');
+        onSelect(i, item.value);
+        col.scrollTo({top: i*40, behavior:'smooth'});
+      };
+      col.appendChild(el);
+    });
+    // bottom spacer = 1 item height so last item can center
+    var padBot=document.createElement('div'); padBot.style.cssText='height:40px;flex-shrink:0;scroll-snap-align:none'; col.appendChild(padBot);
+    // Initial scroll — selected item in center row (row 2 = offset selectedIdx*40)
+    setTimeout(function(){ col.scrollTop=selectedIdx*40; },0);
+    return col;
+  }
+
+  // ── Month column ─────────────────────────────────────────────────────
+  var moItems=monthNames.map(function(name,i){
+    var tooEarly=(selYr===_CAL_MIN_YEAR&&i<_CAL_MIN_MONTH);
+    var tooLate=(selYr===nowYr&&i>nowMo);
+    return {label:name, value:i, disabled:tooEarly||tooLate};
+  });
+  var moCol=makeCol(moItems, selMo, function(i, val){
+    selMo=val;
+  });
+
+  // ── Year column ──────────────────────────────────────────────────────
+  var yrItems=[];
+  for(var y=_CAL_MIN_YEAR;y<=nowYr;y++) yrItems.push({label:String(y),value:y,disabled:false});
+  var yrSelIdx=yrItems.findIndex(function(it){return it.value===selYr;});
+  var yrCol=makeCol(yrItems, yrSelIdx, function(i, val){
+    selYr=val;
+    // Re-evaluate disabled months
+    moCol.querySelectorAll('.dc-picker-item').forEach(function(el,mi){
+      var tooEarly=(selYr===_CAL_MIN_YEAR&&mi<_CAL_MIN_MONTH);
+      var tooLate=(selYr===nowYr&&mi>nowMo);
+      el.classList.toggle('disabled', tooEarly||tooLate);
+      // If currently selected month is now disabled, clamp
+      if(el.classList.contains('active')&&(tooEarly||tooLate)){
+        el.classList.remove('active');
+        var clamp=selYr===_CAL_MIN_YEAR?_CAL_MIN_MONTH:nowMo;
+        selMo=clamp;
+        moCol.querySelectorAll('.dc-picker-item')[clamp].classList.add('active');
+        moCol.scrollTo({top:clamp*40,behavior:'smooth'});
+      }
+    });
+  });
+
+  cols.appendChild(moCol);
+  cols.appendChild(yrCol);
+  picker.appendChild(cols);
+
+  // ── Confirm button ────────────────────────────────────────────────────
+  var confirm=document.createElement('button'); confirm.className='dc-picker-confirm';
+  confirm.textContent=lang==='pt'?'Confirmar':'Confirm';
+  confirm.onclick=function(){
+    _calViewYear=selYr; _calViewMonth=selMo;
+    _renderCalMonth(selYr, selMo);
+  };
+  picker.appendChild(confirm);
+
+  var hdr=mBlock.querySelector('.dc-cal-grid');
+  mBlock.insertBefore(picker, hdr);
+}
 function toggleDailyEntry(cellEl, rec, day, yr, mo){
   // Remove any open expanded panel in this grid
   var existing=cellEl.closest('.dc-month-block').querySelector('.dc-entry-panel');

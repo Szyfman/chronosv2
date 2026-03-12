@@ -293,4 +293,32 @@ var TROPHY_DEFS = [
     needed:null,
     special:'full_deck'
   },
+  {
+    id:'daily_week',
+    icon:'📝',
+    name:'Creature of Habit',
+    name_pt:'Criatura do Hábito',
+    desc:'Complete the Daily Challenge 7 days in a row',
+    desc_pt:'Complete o Desafio Diário por 7 dias seguidos',
+    hint:'Play and finish the Daily Challenge every day for a full week without missing a day.',
+    hint_pt:'Jogue e complete o Desafio Diário todos os dias durante uma semana inteira sem pular nenhum dia.',
+    trivia:'Neurologists estimate it takes between 21 and 66 days to form a habit — not the popular myth of exactly 21 days, which traces back to a 1960 self-help book by plastic surgeon Maxwell Maltz, who noticed patients took "about 21 days" to adjust to their new appearance. The real figure comes from a 2010 University College London study tracking 96 people over 84 days. The average was 66 days, but ranged wildly from 18 to 254 days depending on the person and behavior. Simple habits form faster than complex ones. Fortunately, missing one day doesn\'t break the chain.',
+    trivia_pt:'Neurologistas estimam que leva entre 21 e 66 dias para formar um hábito — não o mito popular de exatamente 21 dias, que remonta a um livro de autoajuda de 1960 do cirurgião plástico Maxwell Maltz, que notou que os pacientes levavam "cerca de 21 dias" para se ajustar à nova aparência. O número real vem de um estudo de 2010 da University College London acompanhando 96 pessoas por 84 dias. A média foi de 66 dias, mas variou enormemente de 18 a 254 dias. Felizmente, pular um dia não quebra a corrente.',
+    needed:null,
+    special:'daily_streak_7'
+  },
+  {
+    id:'daily_forty',
+    icon:'🗓️',
+    name:'The Long Count',
+    name_pt:'A Grande Contagem',
+    desc:'Complete the Daily Challenge 40 days in a row',
+    desc_pt:'Complete o Desafio Diário por 40 dias seguidos',
+    hint:'Maintain an unbroken Daily Challenge streak for 40 consecutive days.',
+    hint_pt:'Mantenha uma sequência ininterrupta de 40 dias no Desafio Diário.',
+    trivia:'The Maya Long Count calendar — one of the most sophisticated timekeeping systems ever devised — tracked time in cycles of 400 years called b\'ak\'tuns, each containing 144,000 days. The calendar began on a mythological creation date equivalent to August 11, 3114 BCE, and its 13th b\'ak\'tun cycle famously ended on December 21, 2012 — which many misread as a doomsday prophecy. The Maya themselves left no such prediction. The Long Count could represent any date across roughly 63 million years, making it one of the longest-range calendar systems ever created by any civilization.',
+    trivia_pt:'O calendário da Contagem Longa maia — um dos sistemas de registro de tempo mais sofisticados já criados — rastreava o tempo em ciclos de 400 anos chamados b\'ak\'tuns, cada um contendo 144.000 dias. O calendário começou em uma data de criação mitológica equivalente a 11 de agosto de 3114 a.C., e seu 13º ciclo b\'ak\'tun terminou em 21 de dezembro de 2012 — que muitos interpretaram erroneamente como uma profecia do fim do mundo. Os próprios maias não deixaram tal previsão. A Contagem Longa pode representar qualquer data ao longo de aproximadamente 63 milhões de anos.',
+    needed:null,
+    special:'daily_streak_40'
+  },
 ];
