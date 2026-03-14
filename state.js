@@ -22,6 +22,7 @@ var isDragging = false;
 var currentDropZone = null;
 
 var reviewMode = false;
+var _pendingDraw = false;
 
 var gameHistory = [];
 try { gameHistory = JSON.parse(localStorage.getItem('chronos_history') || '[]'); } catch(e) {}

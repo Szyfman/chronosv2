@@ -79,17 +79,17 @@ var TROPHY_DEFS = [
     needed:['Augustus', 'Tiberius', 'Caligula', 'Claudius', 'Nero', 'Vespasian', 'Titus', 'Domitian', 'Nerva', 'Trajan', 'Hadrian', 'Antoninus Pius', 'Marcus Aurelius', 'Diocletian', 'Constantine the Great', 'Theodosius I', 'Justinian I']
   },
   {
-    id:'holy_land',
+    id:'crusader',
     icon:'✝️',
-    name:'Holy Land',
-    name_pt:'Terra Santa',
-    desc:'Place all nine Crusades plus the Kingdoms of Judah and Israel correctly in a single run',
-    desc_pt:'Coloque todas as nove Cruzadas mais os Reinos de Judá e de Israel corretamente em uma única partida',
-    hint:'Place all nine Crusades (First through Ninth) plus Kingdom of Judah and Kingdom of Israel in one run.',
-    hint_pt:'Coloque todas as nove Cruzadas (Primeira à Nona) mais o Reino de Judá e o Reino de Israel em uma partida.',
-    trivia:'The Crusades (1095–1291) were launched by Pope Urban II at the Council of Clermont with the promise of full remission of sins for anyone who fought. The First Crusade succeeded — largely because the Islamic world was politically fragmented at the time. But the crusaders\' sack of Jerusalem in 1099 involved massacres so brutal that contemporary crusader chronicles boasted about wading knee-deep in blood. The Fourth Crusade (1202–04) never reached the Holy Land at all — it ended with crusaders sacking Constantinople, a Christian city, instead.',
-    trivia_pt:'As Cruzadas (1095–1291) foram lançadas pelo Papa Urbano II no Concílio de Clermont com a promessa de remissão total dos pecados para quem lutasse. A Primeira Cruzada teve sucesso — em grande parte porque o mundo islâmico estava politicamente fragmentado na época. Mas o saque de Jerusalém pelos cruzados em 1099 envolveu massacres tão brutais que as crônicas dos próprios cruzados se vangloriavam de andar com sangue até os joelhos. A Quarta Cruzada (1202–04) nunca chegou à Terra Santa — terminou com os cruzados saqueando Constantinopla, uma cidade cristã.',
-    needed:['First Crusade','Second Crusade','Third Crusade','Fourth Crusade','Fifth Crusade','Sixth Crusade','Seventh Crusade','Eighth Crusade','Ninth Crusade','Kingdom of Judah','Kingdom of Israel']
+    name:'Crusader',
+    name_pt:'Cruzado',
+    desc:'Place all nine Crusades correctly in a single run',
+    desc_pt:'Coloque todas as nove Cruzadas corretamente em uma única partida',
+    hint:'Place all nine Crusades (First through Ninth) in one run.',
+    hint_pt:'Coloque todas as nove Cruzadas (Primeira à Nona) em uma partida.',
+    trivia:'The Crusades (1095–1291) began in 1095 when Pope Urban II called for a holy war at the Council of Clermont. Participants were promised the remission of sins for fighting. The First Crusade (1096–1099) succeeded and captured Jerusalem in 1099, but later crusades struggled with logistics, politics, and rivalries. The Fourth Crusade (1202–1204) famously never reached the Holy Land and instead sacked Constantinople in 1204, a Christian city.',
+    trivia_pt:'As Cruzadas (1095–1291) começaram em 1095 quando o Papa Urbano II convocou uma guerra santa no Concílio de Clermont. Os participantes receberam a promessa de remissão dos pecados por lutar. A Primeira Cruzada (1096–1099) teve sucesso e conquistou Jerusalém em 1099, mas as cruzadas posteriores enfrentaram dificuldades logísticas, políticas e rivalidades. A Quarta Cruzada (1202–1204) ficou famosa por nunca chegar à Terra Santa e terminar saqueando Constantinopla em 1204, uma cidade cristã.',
+    needed:['First Crusade','Second Crusade','Third Crusade','Fourth Crusade','Fifth Crusade','Sixth Crusade','Seventh Crusade','Eighth Crusade','Ninth Crusade']
   },
   {
     id:'silk_trader',
