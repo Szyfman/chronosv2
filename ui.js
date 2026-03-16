@@ -961,8 +961,8 @@ function openTrophyModal(idx){
     reqBody.textContent = lang==='pt' ? (def.hint_pt || def.hint || '') : (def.hint || '');
     // Light mode colors
     if(document.body.classList.contains('light')){
-      reqLbl.style.color = 'rgba(100,80,30,.4)';
-      reqBody.style.color = 'rgba(60,45,15,.65)';
+      reqLbl.style.color = '#64748b';
+      reqBody.style.color = '#334155';
     }
   } else {
     lbl.textContent = lang==='pt' ? '— Como desbloquear' : '— How to unlock';
