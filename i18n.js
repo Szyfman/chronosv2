@@ -76,7 +76,7 @@ const formatYear=y=>y<0?`${Math.abs(y)} ${lang==='pt'?'a.C.':'BCE'}`:`${y} ${lan
 
 // Show intro history link if there are saved games
 window.addEventListener('DOMContentLoaded',()=>{
-  selectMode('classic'); // set initial era-section visibility
+  // intro-btns visibility depends on saved data
   const btns=document.getElementById('intro-btns');if(btns&&(gameHistory.length||discoveredCards.size))btns.style.display='flex';
 });
 
