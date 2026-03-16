@@ -1213,6 +1213,41 @@ clues:["It was discovered by farmers digging a well in the 20th century.",
 clues_pt:["Foi descoberto por fazendeiros cavando um poço no século XX.",
   "A construção começou quando seu comissário se tornou rei ainda adolescente.",
   "Foi feito para guardar o primeiro homem a unificar toda a China."]},
+{
+name:"Sabbatai Zevi",
+name_pt:"Sabbatai Zevi",
+year:1626,
+cat:"People",
+cat_pt:"Pessoas",
+era:"Early Modern",
+culture:"Jewish / Ottoman",
+culture_pt:"Judaico / Otomano",
+tags:["religion","judaism","messiah","ottoman","abrahamic"],
+hint:"A charismatic Jewish mystic from the Ottoman Empire convinced large parts of the Jewish world that he was the long-awaited Messiah.",
+hint_pt:"Um carismático místico judeu do Império Otomano convenceu grande parte do mundo judaico de que era o Messias aguardado.",
+facts:[
+"Born in Smyrna in 1626, he became one of the most influential messianic claimants in Jewish history.",
+"His movement spread rapidly across Europe, North Africa, and the Middle East in 1665.",
+"In 1666 he was arrested by Ottoman authorities and converted to Islam on 15 September 1666.",
+"His conversion shocked the Jewish world but some followers continued believing in him."
+],
+facts_pt:[
+"Nascido em Esmirna em 1626, tornou-se um dos mais influentes pretendentes messiânicos da história judaica.",
+"Seu movimento espalhou-se rapidamente pela Europa, Norte da África e Oriente Médio em 1665.",
+"Em 1666 foi preso pelas autoridades otomanas e converteu-se ao Islã em 15 de setembro de 1666.",
+"Sua conversão chocou o mundo judaico, mas alguns seguidores continuaram acreditando nele."
+],
+clues:[
+"His rise as a messianic figure began in 1665.",
+"The year 1666 fueled apocalyptic expectations among many of his followers.",
+"After his conversion to Islam he was exiled within the Ottoman Empire."
+],
+clues_pt:[
+"Sua ascensão como figura messiânica começou em 1665.",
+"O ano de 1666 alimentou expectativas apocalípticas entre muitos seguidores.",
+"Após sua conversão ao Islã foi exilado dentro do Império Otomano."
+]
+},
 {name:"Wu Zetian",name_pt:"Wu Zetian",year:624,cat:"People",cat_pt:"Pessoas",era:"Medieval",
 culture:"Chinese",culture_pt:"Chinês",tags:["eastern"],hint:"The only woman in Chinese history to rule as emperor in her own name — placed during the Tang Dynasty",
 hint_pt:"A única mulher na história chinesa a governar como imperatriz em seu próprio nome",

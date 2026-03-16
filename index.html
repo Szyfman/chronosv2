@@ -817,6 +817,7 @@
 <script src="trophies.js"></script>
 <script src="sfx.js"></script>
 <script src="i18n.js"></script>
+<script src="game.js"></script>
 <div id="pwa-banner" style="display:none;position:fixed;bottom:76px;left:50%;transform:translateX(-50%);z-index:9999;background:#1a1508;border:1px solid rgba(201,168,76,0.6);border-radius:16px;padding:12px 16px;box-shadow:0 8px 32px rgba(0,0,0,0.8);align-items:center;gap:12px;max-width:310px;width:88%;font-family:inherit;"><img src="data:image/png;base64,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" width="42" height="42" style="border-radius:10px;flex-shrink:0;"><div style="flex:1;"><div style="color:#c9a84c;font-weight:700;font-size:13px;margin-bottom:2px;">Install Chronos</div><div style="color:#7a7060;font-size:11px;">Play offline from your home screen</div></div><div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0;"><button onclick="window._pwaInstall()" style="background:#c9a84c;color:#0d0c0a;border:none;border-radius:8px;padding:7px 12px;font-weight:700;font-size:12px;cursor:pointer;">Install</button><button onclick="document.getElementById('pwa-banner').style.display='none'" style="background:none;border:none;color:#555;font-size:11px;cursor:pointer;">Not now</button></div></div>
 
 
@@ -1162,39 +1163,7 @@
 <script>
 // ── ERA COLORS ────────────────────────────────────────────────────────────
 
-// Which game eras map to each filter
-const ERA_FILTER_MAP={
-  all:null, // null = no filter = all cards
-  ancient:['Ancient','Classical'],
-  medieval:['Medieval','Renaissance'],
-  modern:['Early Modern','Modern','Contemporary']
-};
 
-// ── MODE MAPS ─────────────────────────────────────────────────────────────
-const MODE_LABEL={
-  empires:   'empires_lbl',
-  abrahamic: 'biblical_lbl',
-  roman:     'mc_roman_title',
-  eastern:   'mc_eastern_title',
-  characters:'characters_lbl'
-};
-const MODE_DRAG_LABEL={
-  empires:   'drag_label_empires',
-  abrahamic: 'drag_label_biblical',
-  roman:     'drag_label_roman',
-  eastern:   'drag_label_eastern',
-  characters:'drag_label_characters'
-};
-const MODE_WON={
-  empires:   'sub_empires_won',
-  abrahamic: 'sub_biblical_won',
-  characters:'sub_characters_won'
-};
-const MODE_LOST={
-  empires:   'sub_empires_lost',
-  abrahamic: 'sub_biblical_lost',
-  characters:'sub_characters_lost'
-};
 function selectMode(m){
   gameMode=m;
   document.getElementById('mc-classic').classList.toggle('selected',m==='classic');
@@ -1269,162 +1238,6 @@ function closeConfirm(){document.getElementById('confirm-dialog').classList.remo
 function doEndRun(){closeConfirm();_voluntaryEnd=true;endGame(false);}
 
 // ── GAME INIT ─────────────────────────────────────────────────────────────
-// ── BUILD POOL ────────────────────────────────────────────────────────────
-function buildPool(mode, eraFilter){
-  let pool;
-  if(mode==='empires'){
-    const allowedEras=ERA_FILTER_MAP[eraFilter];
-    pool=allowedEras?INTERVALS.filter(c=>allowedEras.includes(c.era)):INTERVALS;
-    if(pool.length<4) pool=[...INTERVALS];
-  } else if(mode==='abrahamic'){
-    const biblIntervals=INTERVALS.filter(c=>Array.isArray(c.tags)&&c.tags.includes('abrahamic'));
-    pool=[...CARDS.filter(c=>Array.isArray(c.tags)&&c.tags.includes('abrahamic')),...biblIntervals];
-  } else if(mode==='roman'){
-    pool=[...CARDS,...INTERVALS].filter(c=>Array.isArray(c.tags)&&c.tags.includes('roman'));
-    if(pool.length<4) pool=[...CARDS.filter(c=>c.era==='Classical')];
-  } else if(mode==='eastern'){
-    pool=[...CARDS,...INTERVALS].filter(c=>Array.isArray(c.tags)&&c.tags.includes('eastern'));
-    if(pool.length<4) pool=[...CARDS,...INTERVALS].filter(c=>Array.isArray(c.tags)&&c.tags.includes('eastern'));
-  } else if(mode==='characters'){
-    const allowedEras=ERA_FILTER_MAP[eraFilter];
-    const charPool=CARDS.filter(c=>c.cat==='People'||c.cat_pt==='Pessoas');
-    pool=allowedEras?charPool.filter(c=>allowedEras.includes(c.era)):charPool;
-    if(pool.length<4) pool=[...charPool];
-  } else {
-    // Classic: mixed CARDS + INTERVALS, apply era filter
-    const allowedEras=ERA_FILTER_MAP[eraFilter];
-    const allCards=[...CARDS,...INTERVALS];
-    pool=allowedEras?allCards.filter(c=>allowedEras.includes(c.era)):allCards;
-    if(pool.length<4) pool=[...allCards];
-  }
-  return pool;
-}
-
-function initGame(){
-  _pendingGameRecord = null;
-  _voluntaryEnd = false;
-  currentCard = null;
-  reviewMode = false;
-
-  // ── FULL DOM RESET — wipe every trace of the previous run ────────────
-  // Hide gameover overlay immediately
-  document.getElementById('gameover').classList.remove('show');
-
-  // Reset score, streak & placed display
-  var _sv = document.getElementById('score-val');
-  var _stv = document.getElementById('streak-val');
-  var _pv = document.getElementById('placed-val');
-  if(_sv) _sv.textContent = '0';
-  if(_stv) _stv.textContent = '0';
-  if(_pv) _pv.textContent = '0';
-
-  // Reset hand card to blank state
-  var _hcName = document.getElementById('hc-name');
-  var _hcCat  = document.getElementById('hc-cat');
-  var _hcEra  = document.getElementById('hc-era');
-  var _hcHint = document.getElementById('hc-hint');
-  var _hcClue = document.getElementById('hc-clue');
-  var _hcBar  = document.getElementById('hc-bar');
-  var _hcSpan = document.getElementById('hc-span');
-  var _hcReg  = document.getElementById('hc-region');
-  var _hcCult = document.getElementById('hc-culture');
-  if(_hcName) _hcName.textContent = '—';
-  if(_hcCat)  _hcCat.textContent  = '—';
-  if(_hcEra)  _hcEra.textContent  = '—';
-  if(_hcHint) _hcHint.textContent = '';
-  if(_hcClue) _hcClue.textContent = '';
-  if(_hcBar)  _hcBar.style.background = '';
-  if(_hcSpan) { _hcSpan.textContent = ''; _hcSpan.style.display = 'none'; }
-  if(_hcReg)  { _hcReg.textContent  = ''; _hcReg.style.display  = 'none'; }
-  if(_hcCult) { _hcCult.textContent = ''; _hcCult.style.display = 'none'; }
-
-  // Close confirm dialog if lingering
-  var _cd = document.getElementById('confirm-dialog');
-  if(_cd) _cd.classList.remove('show');
-
-  // Close fact panel and clear review state
-  var _fp = document.getElementById('fact-panel');
-  if(_fp) {
-    _fp.classList.remove('open');
-    _fp.classList.remove('review-mode');
-  }
-
-  // Clear timeline DOM immediately
-  var _tl = document.getElementById('timeline');
-  if(_tl) _tl.innerHTML = '';
-
-  // Clear pending feedback timer and reset element
-  clearTimeout(_feedbackTimer);
-  var _fb = document.getElementById('feedback');
-  if(_fb) { _fb.className = ''; _fb.textContent = ''; }
-
-  // Reset hint/skip counts to starting values
-  var _hc = document.getElementById('hint-count');
-  var _sc = document.getElementById('skip-count');
-  if(_hc) _hc.textContent = '3';
-  if(_sc) _sc.textContent = '1';
-  // Reset hint dots visual state
-  for(var _di=0; _di<3; _di++){
-    var _dot=document.getElementById('hd'+_di);
-    if(_dot) _dot.classList.remove('used');
-  }
-  // Reset _fromGameover flag
-  _fromGameover = false;
-  // ─────────────────────────────────────────────────────────────────────
-
-  deck=shuffle([...buildPool(gameMode,eraFilter)]);timeline=[];score=0;streak=0;lives=3;hints=3;skip=1;cardCluesUsed=0;gameActive=true;_pendingDraw=false;
-  // Daily challenge overrides
-  if(_isDailyChallenge){
-    var _dcPool=[...CARDS,...INTERVALS];
-    var _rng=_seededRNG(_dailySeed());
-    deck=_seededShuffle(_dcPool,_rng).slice(0,18);
-    hints=0; skip=0;
-    var _hcEl=document.getElementById('hint-count');
-    if(_hcEl) _hcEl.textContent='0';
-    for(var _dhi=0;_dhi<3;_dhi++){
-      var _dhd=document.getElementById('hd'+_dhi);
-      if(_dhd) _dhd.classList.add('used');
-    }
-    // Hide hint and skip buttons entirely
-    var _hBtn=document.getElementById('hint-btn');
-    var _sBtn=document.getElementById('skip-btn');
-    if(_hBtn) _hBtn.style.display='none';
-    if(_sBtn) _sBtn.style.display='none';
-  }
-    // Hide history access during play
-  document.getElementById('hist-btn').style.visibility='hidden';
-  document.getElementById('hdr-mode').textContent=_isDailyChallenge?t('daily_title'):t(MODE_LABEL[gameMode]||'subtitle');
-  document.getElementById('streak-lbl').textContent=t('streak');
-  document.getElementById('score-lbl').textContent=t('score');
-  var _plbl=document.getElementById('placed-lbl');if(_plbl)_plbl.textContent=t('placed_lbl');
-  document.getElementById('bottom-label').textContent=t(MODE_DRAG_LABEL[gameMode]||'drag_label');
-  // Pills permanently hidden — no mode label in header
-  document.getElementById('free-pill').style.display='none';
-  document.getElementById('empires-pill').style.display='none';
-  document.getElementById('biblical-pill').style.display='none';
-  document.getElementById('characters-pill').style.display='none';
-  document.getElementById('lives-stat').style.display=livesMode?'flex':'none';
-  renderLives();renderSideBtns();renderTimeline();
-  // Show tutorial first time in empires mode
-  if(gameMode==='empires'&&!empiresShownTutorial){
-    empiresShownTutorial=true;
-    document.getElementById('tutorial').classList.add('show');
-  } else {
-    drawCard();
-  }
-}
-function closeTutorial(){
-  document.getElementById('tutorial').classList.remove('show');
-  drawCard();
-}
-function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
-
-// ── RENDER ────────────────────────────────────────────────────────────────
-const isInterval=c=>c.startYear!==undefined;
-const cardYear=c=>isInterval(c)?c.startYear:c.year;
-const formatSpan=c=>isInterval(c)?formatYear(c.startYear)+' – '+formatYear(c.endYear):formatYear(c.year);
-const cRegion=c=>lang==='pt'?(c.region_pt||c.region):c.region;
-const cCulture=c=>lang==='pt'?(c.culture_pt||c.culture):c.culture;
 function drawCard(){
   if(!deck.length){endGame(true);return;}
   currentCard=deck.pop();
@@ -1520,27 +1333,6 @@ function renderSideBtns(){
   const hl=document.getElementById('hint-lbl');if(hl)hl.textContent=lang==='pt'?'Pista':'Hint';
   const sl=document.getElementById('skip-lbl');if(sl)sl.textContent=lang==='pt'?'Pular':'Skip';
 }
-function useHint(){
-  if(!currentCard||!gameActive||hints<=0||cardCluesUsed>=3)return;
-  const pool=lang==='pt'?currentCard.clues_pt:currentCard.clues;
-  if(!pool||!pool[cardCluesUsed])return;
-  hints--;
-  const clueEl=document.getElementById('hc-clue');
-  clueEl.textContent='💡 '+pool[cardCluesUsed];
-  clueEl.classList.add('show');
-  cardCluesUsed++;
-  renderSideBtns();
-}
-function useSkip(){
-  if(!currentCard||!gameActive||skip<=0)return;
-  skip--;
-  // Put current card back at a random position in remaining deck (not at top)
-  const card=currentCard;currentCard=null;
-  const insertAt=Math.max(0,Math.floor(Math.random()*(deck.length-1)));
-  deck.splice(insertAt,0,card);
-  renderSideBtns();
-  drawCard();
-}
 let _toastTimer=null;
 function showStreakToast(){
   const el=document.getElementById('streak-toast');
@@ -1595,42 +1387,6 @@ function dzAt(x,y){
   return null;
 }
 
-// ── GAME LOGIC ────────────────────────────────────────────────────────────
-function attemptPlacement(idx){
-  if(!currentCard||!gameActive)return;
-  const card=currentCard;
-  const cy=cardYear(card);
-  const prev=timeline[idx-1],next=timeline[idx];
-  const valid=(!prev||cy>=cardYear(prev))&&(!next||cy<=cardYear(next));
-  if(valid){
-    // Interval scoring: bonus for duration (longer empires = harder to place precisely)
-    SFX.play('correct');
-    const basePoints=isInterval(card)?Math.min(30,10+Math.floor((card.endYear-card.startYear)/100)):10;
-    timeline.splice(idx,0,card);score+=basePoints+streak*2;streak++;currentCard=null;
-    if(streak>0&&streak%20===0){hints++;renderSideBtns();showStreakToast();}
-    checkStreakTrophy();
-    renderTimeline();
-    document.getElementById('score-val').textContent=score;
-    document.getElementById('streak-val').textContent=streak;
-    var _pv=document.getElementById('placed-val');if(_pv)_pv.textContent=timeline.length;
-    setTimeout(()=>{const cards=document.querySelectorAll('.timeline-card');if(cards[idx])cards[idx].scrollIntoView({behavior:'smooth',block:'center'});},100);
-    _pendingDraw=true;showFeedback(true,null);showFact(card,false);
-  } else {
-    SFX.play('wrong');
-    streak=0;document.getElementById('streak-val').textContent=streak;
-    let hint='none';
-    if(timeline.length>0){
-      const firstNewerIdx=timeline.findIndex(c=>cy<cardYear(c));
-      let correctSlot=firstNewerIdx===-1?timeline.length:firstNewerIdx;
-      hint=correctSlot<idx?'earlier':'later';
-    }
-    showFeedback(false,hint);
-    if(livesMode){
-      lives--;renderLives();
-      if(lives<=0)setTimeout(()=>endGame(false),700);
-    }
-  }
-}
 var _feedbackTimer=null;
 function showFeedback(ok,hint){
   const el=document.getElementById('feedback');el.className='';
@@ -1685,72 +1441,6 @@ function closeFact(){
   // Draw next card if: (a) this was a post-placement panel (not review), OR
   // (b) this was a review that interrupted a pending post-placement panel
   if(gameActive&&(!wasReview||_pendingDraw)){_pendingDraw=false;drawCard();}
-}
-
-// ── GAME OVER ─────────────────────────────────────────────────────────────
-function endGame(won){
-  gameActive=false;
-  // Zero cards placed: skip gameover, return to intro
-  if(timeline.length===0){
-    document.getElementById('hist-btn').style.visibility='';
-    _pendingGameRecord=null; _voluntaryEnd=false;
-    _isDailyChallenge=false;
-    showIntro(); return;
-  }
-  // Mark daily challenge complete
-  if(_isDailyChallenge){ _markDailyDone(); _isDailyChallenge=false; }
-  _pendingGameRecord = buildGameRecord(won);
-  _eagerSaveDiscovered();
-  checkTrophies();
-  // Restore history button
-  document.getElementById('hist-btn').style.visibility='';
-  document.getElementById('go-title').textContent=won?t('go_won'):t('go_lost');
-  const goSub=won
-    ?t(MODE_WON[gameMode]||'sub_won')
-    :(_voluntaryEnd?t('sub_ended')
-      :(livesMode?t(MODE_LOST[gameMode]||'sub_lost'):t('sub_free')));
-  _voluntaryEnd=false;
-  document.getElementById('go-sub').textContent=goSub;
-  document.getElementById('go-score').textContent=score;
-  document.getElementById('go-score-lbl').textContent=t('final_score');
-  var _saveBtn=document.getElementById('go-save-btn');
-  if(_saveBtn){_saveBtn.textContent=lang==='pt'?'💾 Salvar Timeline':'💾 Save Timeline';_saveBtn.disabled=false;_saveBtn.style.opacity='';}
-  document.getElementById('go-again-btn').textContent=t('play_again');
-  // stopMusic(true);
-  document.getElementById('gameover').classList.add('show');
-}
-
-// ── HISTORY ───────────────────────────────────────────────────────────────
-function buildGameRecord(won) {
-  return {
-    date: new Date().toISOString(),
-    mode: gameMode, livesMode: livesMode, eraFilter: eraFilter,
-    lang: lang, score: score, placed: timeline.length, won: won,
-    timeline: timeline.map(function(c) {
-      return {
-        name: cName(c), year: cardYear(c),
-        span: isInterval(c) ? formatYear(c.startYear)+' – '+formatYear(c.endYear) : null,
-        era: c.era, cat: isInterval(c) ? cCulture(c) : cCat(c)
-      };
-    })
-  };
-}
-
-function _eagerSaveDiscovered() {
-  timeline.forEach(function(c){ var k=c.name||c.name_en; if(k) discoveredCards.add(k); });
-  saveDiscovered();
-}
-
-function saveAndOpenHistory() {
-  if (_pendingGameRecord) {
-    gameHistory.unshift(_pendingGameRecord);
-    if (gameHistory.length > 30) gameHistory = gameHistory.slice(0, 30);
-    try { localStorage.setItem('chronos_history', JSON.stringify(gameHistory)); } catch(e) {}
-    _pendingGameRecord = null;
-    var btn = document.getElementById('go-save-btn');
-    if (btn) { btn.textContent = '✓ '+(lang==='pt'?'Salvo!':'Saved!'); btn.disabled = true; btn.style.opacity = '0.6'; }
-  }
-  setTimeout(function(){ openHistoryFromGameover(); }, 300);
 }
 
 function openHistory(){
@@ -1819,61 +1509,6 @@ function switchHpTab(tab){
   document.getElementById('history-list').style.display = tab==='timelines' ? '' : 'none';
   document.getElementById('hp-streak').style.display = tab==='streak' ? 'flex' : 'none';
   if(tab==='streak'){ _calViewYear=new Date().getFullYear(); _calViewMonth=new Date().getMonth(); renderStreakTab(); }
-}
-
-// ── STREAK HELPERS ────────────────────────────────────────────────────────
-function _dailyKey(date){
-  var y=date.getFullYear();
-  var m=String(date.getMonth()+1).padStart(2,'0');
-  var d=String(date.getDate()).padStart(2,'0');
-  return 'chronos_daily_'+y+'-'+m+'-'+d;
-}
-function _isDailyDone(date){
-  try{ return !!localStorage.getItem(_dailyKey(date)); }catch(e){ return false; }
-}
-function _getDailyRecord(date){
-  try{
-    var raw=localStorage.getItem(_dailyKey(date));
-    if(!raw) return null;
-    if(raw==='1') return {score:0,placed:0,timeline:[]};
-    return JSON.parse(raw);
-  }catch(e){ return null; }
-}
-function _calcStreak(){
-  var today=new Date(); today.setHours(0,0,0,0);
-  var cur=0,longest=0,run=0;
-  // If today isn't done yet, count back from yesterday so the streak
-  // reflects completed days rather than showing 0 all day until you play
-  var checking=new Date(today);
-  if(!_isDailyDone(checking)) checking.setDate(checking.getDate()-1);
-  while(_isDailyDone(checking)){
-    cur++;
-    checking.setDate(checking.getDate()-1);
-  }
-  var keys=[];
-  try{
-    for(var i=0;i<localStorage.length;i++){
-      var k=localStorage.key(i);
-      if(k&&k.startsWith('chronos_daily_')) keys.push(k);
-    }
-  }catch(e){}
-  keys.sort();
-  run=0;
-  for(var j=0;j<keys.length;j++){
-    if(j===0){ run=1; }
-    else{
-      var prev=new Date(keys[j-1].replace('chronos_daily_',''));
-      var curr=new Date(keys[j].replace('chronos_daily_',''));
-      var diff=(curr-prev)/(1000*60*60*24);
-      run=diff===1?run+1:1;
-    }
-    if(run>longest) longest=run;
-  }
-  return {cur:cur,longest:longest};
-}
-function _todayDone(){
-  var t=new Date(); t.setHours(0,0,0,0);
-  return _isDailyDone(t);
 }
 
 // ── RENDER STREAK TAB ─────────────────────────────────────────────────────
@@ -2129,87 +1764,6 @@ function toggleDailyEntry(cellEl, rec, day, yr, mo){
 }
 
 // ── DAILY CHALLENGE ───────────────────────────────────────────────────────
-var _isDailyChallenge = false;
-
-// Seeded PRNG (mulberry32) — same seed = same sequence every time
-function _seededRNG(seed){
-  return function(){
-    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
-    var t = Math.imul(seed ^ seed >>> 15, 1 | seed);
-    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-    return ((t ^ t >>> 14) >>> 0) / 4294967296;
-  };
-}
-function _dailySeed(){
-  var d = new Date(); 
-  // seed = YYYYMMDD as integer
-  return d.getFullYear() * 10000 + (d.getMonth()+1) * 100 + d.getDate();
-}
-function _seededShuffle(arr, rng){
-  var a = arr.slice();
-  for(var i = a.length - 1; i > 0; i--){
-    var j = Math.floor(rng() * (i + 1));
-    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
-  }
-  return a;
-}
-
-function startDailyChallenge(){
-  if(_todayDone()) return;
-  gameMode = 'classic';
-  eraFilter = 'all';
-  livesMode = true;
-  _isDailyChallenge = true;
-  // Close all overlays cleanly, same as startGame()
-  document.getElementById('history-panel').classList.remove('open');
-  document.getElementById('intro').classList.remove('show');
-  var _cs=document.getElementById('cultures-screen');
-  if(_cs) _cs.classList.remove('show');
-  document.getElementById('gameover').classList.remove('show');
-  // Restore hint/skip visibility (will be re-hidden inside initGame daily block)
-  var _hBtnR=document.getElementById('hint-btn');
-  var _sBtnR=document.getElementById('skip-btn');
-  if(_hBtnR) _hBtnR.style.display='';
-  if(_sBtnR) _sBtnR.style.display='';
-  initGame();
-}
-
-function _markDailyDone(){
-  var today = new Date(); today.setHours(0,0,0,0);
-  var record = {
-    score: score,
-    placed: timeline.length,
-    timeline: timeline.map(function(c){
-      return {
-        name: cName(c),
-        year: cardYear(c),
-        span: isInterval(c) ? formatYear(c.startYear)+' – '+formatYear(c.endYear) : null,
-        era: c.era
-      };
-    })
-  };
-  try{ localStorage.setItem(_dailyKey(today), JSON.stringify(record)); }catch(e){}
-}
-
-// ── ERA TAG HELPER ───────────────────────────────────────────────────────
-function eraTagLabel(ef){
-  if(!ef||ef==='all')return t('era_all');
-  if(ef==='ancient')return t('era_ancient');
-  if(ef==='medieval')return t('era_medieval');
-  if(ef==='modern')return t('era_modern');
-  return t('era_all');
-}
-// history badge for mode
-function modeBadgeLabel(mode,lm){
-  const lives=(lm===false)?(' · '+t('free_lbl')):'';
-  if(mode==='empires')return t('empires_lbl')+lives;
-  if(mode==='abrahamic')return t('biblical_lbl')+lives;
-  if(mode==='roman')return t('mc_roman_title')+lives;
-  if(mode==='eastern')return t('mc_eastern_title')+lives;
-  if(mode==='characters')return t('characters_lbl')+lives;
-  return t('classic_lbl')+lives;
-}
-
 // ── DELETE HISTORY ENTRIES ────────────────────────────────────────────────
 let _delIdx=null;
 function askDeleteEntry(i){
@@ -2231,8 +1785,6 @@ function confirmDel(){
 var cpFilt = 'all';
 var cpEra = 'all';
 var cpFiltVisible = false;
-var _pendingGameRecord = null;
-var _voluntaryEnd = false;
 
 function openCompendium() {
   var el = document.getElementById('cp-q');
@@ -2465,68 +2017,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeFact();closeCo
 document.addEventListener('touchmove',e=>{if(isDragging)e.preventDefault();},{passive:false});
 
 // ── TROPHY SYSTEM ─────────────────────────────────────────────────────────
-
-var earnedTrophies = {};
-try { var _et=localStorage.getItem('chronos_trophies'); if(_et) earnedTrophies=JSON.parse(_et); } catch(e) {}
-
-function saveTrophies(){
-  try { localStorage.setItem('chronos_trophies', JSON.stringify(earnedTrophies)); } catch(e) {}
-}
-
-function checkTrophies(){
-  var placed = timeline.map(function(c){ return c.name; });
-  var intervals_placed = timeline.filter(function(c){ return c.startYear !== undefined; }).length;
-  var newlyEarned = [];
-
-  TROPHY_DEFS.forEach(function(def){
-    if(earnedTrophies[def.id]) return;
-    var earned = false;
-    if(def.special === 'compendium_complete'){
-      earned = discoveredCards.size >= (CARDS.length + INTERVALS.length);
-    } else if(def.special === 'hundred_cards'){
-      earned = placed.length >= 100;
-    } else if(def.special === 'warlord'){
-      var wars = ['World War I','World War II','Korean War','Vietnam War','Hundred Years War',
-                  "Thirty Years' War",'Persian Wars','First Punic War','Second Punic War',
-                  'Third Punic War','American Civil War','American Revolution','French Revolution',
-                  'Trojan War','Cold War'];
-      var warCount = wars.filter(function(w){ return placed.indexOf(w) >= 0; }).length;
-      earned = warCount >= 8;
-    } else if(def.special === 'ten_intervals'){
-      earned = intervals_placed >= 10;
-    } else if(def.special === 'full_deck'){
-      earned = deck.length === 0 && gameActive === false && placed.length > 0;
-    } else if(def.special === 'score_500'){
-      earned = score >= 500;
-    } else if(def.special === 'streak_50'){
-      earned = streak >= 50;
-    } else if(def.special === 'daily_streak_7'){
-      earned = _calcStreak().longest >= 7;
-    } else if(def.special === 'daily_streak_40'){
-      earned = _calcStreak().longest >= 40;
-    } else if(def.needed){
-      earned = def.needed.every(function(n){ return placed.indexOf(n) >= 0; });
-    }
-    if(earned){
-      earnedTrophies[def.id] = new Date().toISOString();
-      newlyEarned.push(def);
-    }
-  });
-
-  if(newlyEarned.length > 0){
-    saveTrophies();
-    _showTrophyToastQueue(newlyEarned, 0);
-  }
-}
-
-// Also check streak trophy mid-game when streak hits 10
-function checkStreakTrophy(){
-  if(streak >= 50 && !earnedTrophies['on_fire']){
-    earnedTrophies['on_fire'] = new Date().toISOString();
-    saveTrophies();
-    _showTrophyToastQueue([TROPHY_DEFS.find(function(d){ return d.id==='on_fire'; })], 0);
-  }
-}
 
 function _showTrophyToastQueue(list, idx){
   if(idx >= list.length) return;
