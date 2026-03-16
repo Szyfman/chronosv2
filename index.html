@@ -852,13 +852,12 @@
       </div>
     </div>
 
-    <p class="section-lbl" id="diff-label">Difficulty</p>
     <div class="lives-row">
       <button class="lives-opt lives-on active" id="lo-lives" onclick="selectLives(true)">
-        <span id="lo-lives-lbl">♥ Lives</span>
+        <span id="lo-lives-lbl">Lives</span>
       </button>
       <button class="lives-opt free-play" id="lo-free" onclick="selectLives(false)">
-        <span id="lo-free-lbl">∞ Free Play</span>
+        <span id="lo-free-lbl">Free Play</span>
       </button>
     </div>
 
@@ -916,13 +915,12 @@
       </div>
     </div>
 
-    <p class="section-lbl">Difficulty</p>
     <div class="lives-row">
       <button class="lives-opt lives-on active" id="clo-lives" onclick="selectCultureLives(true)">
-        <span id="clo-lives-lbl">♥ Lives</span>
+        <span id="clo-lives-lbl">Lives</span>
       </button>
       <button class="lives-opt free-play" id="clo-free" onclick="selectCultureLives(false)">
-        <span id="clo-free-lbl">∞ Free Play</span>
+        <span id="clo-free-lbl">Free Play</span>
       </button>
     </div>
 
@@ -939,9 +937,9 @@
     <button id="cultures-start-btn" onclick="startCultureGame()">Begin</button>
 
     <div class="hub-btns">
-      <button class="hub-btn" onclick="_fromCultures=true;openHistory()">📜 History</button>
-      <button class="hub-btn" onclick="_fromCultures=true;openCompendium()">📚 Compendium</button>
-      <button class="hub-btn" onclick="_fromCultures=true;openTrophies()">🏆 Trophies</button>
+      <button class="hub-btn" id="cult-hist-btn" onclick="_fromCultures=true;openHistory()">📜 History</button>
+      <button class="hub-btn" id="cult-comp-btn" onclick="_fromCultures=true;openCompendium()">📚 Compendium</button>
+      <button class="hub-btn" id="cult-trophy-btn" onclick="_fromCultures=true;openTrophies()">🏆 Trophies</button>
     </div>
 
   </div>
@@ -1166,7 +1164,7 @@ const ERA_COLORS={Ancient:'#c17f3a',Classical:'#3a7ab8',Medieval:'#8a4ab8',Renai
 
 // ── TRANSLATIONS ──────────────────────────────────────────────────────────
 const S={
-en:{subtitle:'Timeline',drag_label:'Drag to place · tap placed cards to review',drop_here:'+ drop here',streak:'Streak',placed_lbl:'Placed',score:'Score',correct:'✓ Correct',wrong:'✗ Try again',wrong_earlier:'✗ Too recent — place it earlier',wrong_later:'✗ Too old — place it later',fact_tag:'Historical Insight',review_tag:'Card Review',fp_continue:'Continue →',fp_close:'✕ Close',go_won:'Well Played',go_lost:'Time Ends',sub_won:'All cards placed!',sub_ended:'Run ended',sub_lost:'All lives lost',sub_free:'Game complete!',final_placed_lbl:'Colocadas',score:'Final Score',play_again:'Play Again',view_history:'◷ History',history_title:'Game History',hp_close:'✕ Close',no_history:'No games played yet.\nFinish a game to see it here.',cards_placed:'cards placed',tl_lbl:'Timeline built:',classic_lbl:'Classic',free_lbl:'Free',i_sub:'History Timeline Game',i_desc:'Place historical figures, events and empires in chronological order — without seeing the dates.',mc_classic_title:'Classic',mc_classic_desc:'Place people, events and discoveries in order.',lo_lives:'♥ Lives',lo_free:'∞ Free',mc_free_title:'Free',mc_free_desc:'No lives. Learn without pressure.',begin:'Begin',free_mode_lbl:'Free',end_title:'End this run?',end_body:'This run will count as a loss. You can save your timeline on the end screen.',keep_playing:'Keep playing',end_run:'End run',
+en:{subtitle:'Timeline',drag_label:'Drag to place · tap placed cards to review',drop_here:'+ drop here',streak:'Streak',placed_lbl:'Placed',score:'Score',correct:'✓ Correct',wrong:'✗ Try again',wrong_earlier:'✗ Too recent — place it earlier',wrong_later:'✗ Too old — place it later',fact_tag:'Historical Insight',review_tag:'Card Review',fp_continue:'Continue →',fp_close:'✕ Close',go_won:'Well Played',go_lost:'Time Ends',sub_won:'All cards placed!',sub_ended:'Run ended',sub_lost:'All lives lost',sub_free:'Game complete!',final_placed_lbl:'Colocadas',score:'Final Score',play_again:'Play Again',view_history:'◷ History',history_title:'Game History',hp_close:'✕ Close',no_history:'No games played yet.\nFinish a game to see it here.',cards_placed:'cards placed',tl_lbl:'Timeline built:',classic_lbl:'Classic',free_lbl:'Free',i_sub:'History Timeline Game',i_desc:'Place historical figures, events and empires in chronological order — without seeing the dates.',mc_classic_title:'Classic',mc_classic_desc:'Place people, events and discoveries in order.',lo_lives:'Lives',lo_free:'Free',mc_free_title:'Free',mc_free_desc:'No lives. Learn without pressure.',begin:'Begin',free_mode_lbl:'Free',end_title:'End this run?',end_body:'This run will count as a loss. You can save your timeline on the end screen.',keep_playing:'Keep playing',end_run:'End run',
     hp_clear_all:'✕ Clear all',
     del_one:'Delete this game from history?',
     del_all:'Delete all saved games? This cannot be undone.',
@@ -1194,7 +1192,7 @@ en:{subtitle:'Timeline',drag_label:'Drag to place · tap placed cards to review'
     drag_label_eastern:'Place Eastern civilizations and figures in order — without seeing the dates',
     sub_biblical_won:'Sacred history complete!',sub_biblical_lost:'The scroll is sealed...',
     wrong_earlier_empires:'✗ Too recent — place it earlier',wrong_later_empires:'✗ Too old — place it later',tab_timelines:'📜 Timelines',tab_streak:'🔥 Streak',daily_play:'📅 Play Today\'s Challenge',daily_done:'✓ Completed Today',daily_comeback:'Come back tomorrow for a new challenge!',daily_current_streak:'Current Streak',daily_longest_streak:'Longest Streak',daily_title:'Daily Challenge'},
-pt:{subtitle:'Linha do Tempo',drag_label:'Arraste para colocar · toque nas cartas colocadas para rever',drop_here:'+ soltar aqui',streak:'Sequência',score:'Pontos',correct:'✓ Correto',wrong:'✗ Tente novamente',wrong_earlier:'✗ Muito recente — coloque antes',wrong_later:'✗ Muito antigo — coloque depois',fact_tag:'Curiosidade Histórica',review_tag:'Rever Carta',fp_continue:'Continuar →',fp_close:'✕ Fechar',go_won:'Muito Bem',go_lost:'O Tempo Acabou',sub_won:'Todas as cartas colocadas!',sub_ended:'Partida encerrada',sub_lost:'Todas as vidas perdidas',sub_free:'Jogo completo!',final_score:'Pontuação Final',play_again:'Jogar Novamente',view_history:'◷ Histórico',history_title:'Histórico de Jogos',hp_close:'✕ Fechar',no_history:'Nenhum jogo ainda.\nTermine um jogo para vê-lo aqui.',cards_placed:'cartas colocadas',tl_lbl:'Linha do tempo:',classic_lbl:'Clássico',free_lbl:'Livre',i_sub:'Jogo de Linha do Tempo Histórica',i_desc:'Coloque figuras históricas, eventos e impérios em ordem cronológica — sem ver as datas.',mc_classic_title:'Clássico',mc_classic_desc:'Coloque pessoas, eventos e descobertas em ordem.',lo_lives:'♥ Vidas',lo_free:'∞ Livre',mc_free_title:'Livre',mc_free_desc:'Sem vidas. Aprenda sem pressão.',begin:'Começar',free_mode_lbl:'Livre',end_title:'Encerrar esta partida?',end_body:'Esta rodada contará como derrota. Você pode salvar sua timeline na tela final.',keep_playing:'Continuar jogando',end_run:'Encerrar partida',
+pt:{subtitle:'Linha do Tempo',drag_label:'Arraste para colocar · toque nas cartas colocadas para rever',drop_here:'+ soltar aqui',streak:'Sequência',score:'Pontos',correct:'✓ Correto',wrong:'✗ Tente novamente',wrong_earlier:'✗ Muito recente — coloque antes',wrong_later:'✗ Muito antigo — coloque depois',fact_tag:'Curiosidade Histórica',review_tag:'Rever Carta',fp_continue:'Continuar →',fp_close:'✕ Fechar',go_won:'Muito Bem',go_lost:'O Tempo Acabou',sub_won:'Todas as cartas colocadas!',sub_ended:'Partida encerrada',sub_lost:'Todas as vidas perdidas',sub_free:'Jogo completo!',final_score:'Pontuação Final',play_again:'Jogar Novamente',view_history:'◷ Histórico',history_title:'Histórico de Jogos',hp_close:'✕ Fechar',no_history:'Nenhum jogo ainda.\nTermine um jogo para vê-lo aqui.',cards_placed:'cartas colocadas',tl_lbl:'Linha do tempo:',classic_lbl:'Clássico',free_lbl:'Livre',i_sub:'Jogo de Linha do Tempo Histórica',i_desc:'Coloque figuras históricas, eventos e impérios em ordem cronológica — sem ver as datas.',mc_classic_title:'Clássico',mc_classic_desc:'Coloque pessoas, eventos e descobertas em ordem.',lo_lives:'Vidas',lo_free:'Livre',mc_free_title:'Livre',mc_free_desc:'Sem vidas. Aprenda sem pressão.',begin:'Começar',free_mode_lbl:'Livre',end_title:'Encerrar esta partida?',end_body:'Esta rodada contará como derrota. Você pode salvar sua timeline na tela final.',keep_playing:'Continuar jogando',end_run:'Encerrar partida',
     hp_clear_all:'✕ Limpar tudo',
     del_one:'Excluir este jogo do histórico?',
     del_all:'Excluir todos os jogos salvos? Isso não pode ser desfeito.',
@@ -1243,42 +1241,7 @@ function setLang(l,btn){
   try{localStorage.setItem('chronos_lang',l);}catch(e){}
   document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
   if(btn)btn.classList.add('active');
-  document.getElementById('i-sub').textContent=t('i_sub');
-  document.getElementById('i-desc').textContent=t('i_desc');
-  document.getElementById('mc-classic-title').textContent=t('mc_classic_title');
-  document.getElementById('mc-classic-desc').textContent=t('mc_classic_desc');
-  document.getElementById('lo-lives-lbl').textContent=t('lo_lives');
-  document.getElementById('lo-free-lbl').textContent=t('lo_free');
-  document.getElementById('start-btn').textContent=t('begin');
-  document.getElementById('rules-label').textContent=t('rules_label');
-  document.getElementById('era-label').textContent=t('era_label');
-  document.getElementById('ec-all').textContent=t('era_all');
-  document.getElementById('ec-ancient').textContent=t('era_ancient');
-  document.getElementById('ec-medieval').textContent=t('era_medieval');
-  document.getElementById('ec-modern').textContent=t('era_modern');
-  document.getElementById('mc-empires-title').textContent=t('mc_empires_title');
-  document.getElementById('mc-empires-desc').textContent=t('mc_empires_desc');
-  document.getElementById('mc-biblical-title').textContent=t('mc_biblical_title');
-  document.getElementById('mc-biblical-desc').textContent=t('mc_biblical_desc');
-  document.getElementById('mc-characters-title').textContent=t('mc_characters_title');
-  document.getElementById('mc-characters-desc').textContent=t('mc_characters_desc');
-  // Tutorial text (PT support)
-  document.getElementById('tut-title').textContent=t('tut_title');
-  document.getElementById('tut-sub').textContent=t('tut_sub');
-  document.getElementById('tut-s1').textContent=t('tut_s1');
-  document.getElementById('tut-s2').textContent=t('tut_s2');
-  document.getElementById('tut-s3').textContent=t('tut_s3');
-  document.getElementById('tut-s4').textContent=t('tut_s4');
-  document.getElementById('tut-btn').textContent=t('tut_btn');
-  // Re-render streak tab if currently open
-  if(document.getElementById('history-panel').classList.contains('open') && _hpTab==='streak'){
-    renderStreakTab();
-  }
-  // Update tab labels regardless
-  var _tl=document.getElementById('hp-tab-timelines');
-  var _ts=document.getElementById('hp-tab-streak');
-  if(_tl) _tl.textContent=t('tab_timelines');
-  if(_ts) _ts.textContent=t('tab_streak');
+  _applyAllTranslations();
 }
 // Which game eras map to each filter
 const ERA_FILTER_MAP={
@@ -1513,7 +1476,6 @@ function initGame(){
   document.getElementById('hdr-mode').textContent=_isDailyChallenge?t('daily_title'):t(MODE_LABEL[gameMode]||'subtitle');
   document.getElementById('streak-lbl').textContent=t('streak');
   document.getElementById('score-lbl').textContent=t('score');
-  var _plbl2=document.getElementById('placed-lbl');if(_plbl2)_plbl2.textContent=t('placed_lbl');
   var _plbl=document.getElementById('placed-lbl');if(_plbl)_plbl.textContent=t('placed_lbl');
   document.getElementById('bottom-label').textContent=t(MODE_DRAG_LABEL[gameMode]||'drag_label');
   // Pills permanently hidden — no mode label in header
@@ -2487,7 +2449,7 @@ function renderCP() {
   if (!list) return;
 
   if (!filtered.length) {
-    list.innerHTML = '<p style="text-align:center;color:#9a9080;padding:40px 20px;font-family:Inter,sans-serif;font-size:.9rem">'+(lang='pt'?'Nenhuma carta encontrada.':'No cards match.')+'</p>';
+    list.innerHTML = '<p style="text-align:center;color:#9a9080;padding:40px 20px;font-family:Inter,sans-serif;font-size:.9rem">'+(lang==='pt'?'Nenhuma carta encontrada.':'No cards match.')+'</p>';
     return;
   }
 
@@ -2811,17 +2773,7 @@ function setTheme(mode) {
 }
 
 function setLangSetting(l) {
-  lang = l;
-  try { localStorage.setItem('chronos_lang', l); } catch(e) {}
-  // Sync any remaining .lang-btn elements
-  document.querySelectorAll('.lang-btn').forEach(function(b) {
-    b.classList.toggle('active', (b.textContent.indexOf('nglish') >= 0 ? 'en' : 'pt') === l);
-  });
-  // Re-apply all translations using the existing setLang infrastructure
-  // Call with a dummy btn that matches the language
-  var dummyBtn = {classList:{add:function(){},remove:function(){}}};
-  // Manually trigger the parts of setLang that don't need a real button
-  _applyAllTranslations();
+  setLang(l);
   updateSettingsUI();
 }
 
@@ -2833,7 +2785,7 @@ function _applyAllTranslations() {
     ['mc-empires-title','mc_empires_title'],['mc-empires-desc','mc_empires_desc'],
     ['mc-characters-title','mc_characters_title'],['mc-characters-desc','mc_characters_desc'],
     ['mc-biblical-title','mc_biblical_title'],['mc-biblical-desc','mc_biblical_desc'],['mc-roman-desc','mc_roman_desc'],['mc-eastern-desc','mc_eastern_desc'],['mc-back-desc','mc_back_desc'],['cultures-title','cultures_title'],['cultures-i-sub','cultures_i_sub'],['cultures-i-desc','cultures_i_desc'],['mc-roman-title','mc_roman_title'],['mc-eastern-title','mc_eastern_title'],['mc-back-title','mc_back_title'],['mc-cultures-title','mc_cultures_title'],['mc-cultures-desc','mc_cultures_desc'],
-    ['diff-label','diff_label'],['era-label','era_label'],
+    ['era-label','era_label'],
     ['ec-all','era_all'],['ec-ancient','era_ancient'],
     ['ec-medieval','era_medieval'],['ec-modern','era_modern'],
     ['rules-label','game_mode_lbl'],
@@ -2849,8 +2801,53 @@ function _applyAllTranslations() {
   if (cb) cb.textContent = lang === 'pt' ? '📚 Compêndio' : '📚 Compendium';
   var tb = document.getElementById('intro-trophy-btn');
   if (tb) tb.textContent = lang === 'pt' ? '🏆 Troféus' : '🏆 Trophies';
-  var bb = document.getElementById('begin-btn');
-  if (bb) bb.textContent = t('begin') || (lang === 'pt' ? 'COMEÇAR' : 'BEGIN');
+  var bb = document.getElementById('start-btn');
+  if (bb) bb.textContent = t('begin');
+  // Main hub lives/free
+  var lb = document.getElementById('lo-lives-lbl');
+  if (lb) lb.textContent = t('lo_lives');
+  var fb = document.getElementById('lo-free-lbl');
+  if (fb) fb.textContent = t('lo_free');
+  // Cultures hub elements
+  var cll = document.getElementById('clo-lives-lbl');
+  if (cll) cll.textContent = t('lo_lives');
+  var cfl = document.getElementById('clo-free-lbl');
+  if (cfl) cfl.textContent = t('lo_free');
+  var csb = document.getElementById('cultures-start-btn');
+  if (csb) csb.textContent = t('begin');
+  var chh = document.getElementById('cult-hist-btn');
+  if (chh) chh.textContent = lang === 'pt' ? '📜 Histórico' : '📜 History';
+  var chc = document.getElementById('cult-comp-btn');
+  if (chc) chc.textContent = lang === 'pt' ? '📚 Compêndio' : '📚 Compendium';
+  var cht = document.getElementById('cult-trophy-btn');
+  if (cht) cht.textContent = lang === 'pt' ? '🏆 Troféus' : '🏆 Trophies';
+  // Streak tab re-render if open
+  if (document.getElementById('history-panel').classList.contains('open') && _hpTab === 'streak') {
+    renderStreakTab();
+  }
+  // Tab labels
+  var _tl = document.getElementById('hp-tab-timelines');
+  var _ts = document.getElementById('hp-tab-streak');
+  if (_tl) _tl.textContent = t('tab_timelines');
+  if (_ts) _ts.textContent = t('tab_streak');
+  // Re-render open panels so dynamic content updates with new language
+  if(document.getElementById('history-panel').classList.contains('open')){
+    renderHistoryPanel();
+  }
+  if(document.getElementById('cp').classList.contains('open')){
+    var _cpt=document.getElementById('cp-title');
+    if(_cpt)_cpt.textContent=lang==='pt'?'📚 Compêndio':'📚 Compendium';
+    var _cpc=document.getElementById('cp-close');
+    if(_cpc)_cpc.textContent=lang==='pt'?'✕ Fechar':'✕ Close';
+    renderCP();
+  }
+  if(document.getElementById('tp').classList.contains('open')){
+    var _tpt=document.getElementById('tp-title-txt');
+    if(_tpt)_tpt.textContent=lang==='pt'?'🏆 Troféus':'🏆 Trophies';
+    var _tpc=document.getElementById('tp-close');
+    if(_tpc)_tpc.textContent=lang==='pt'?'✕ Fechar':'✕ Close';
+    renderTrophies();
+  }
 }
 
 
