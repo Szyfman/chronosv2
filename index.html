@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -749,7 +748,7 @@
   #settings-panel.open{pointer-events:all}
   #settings-bg{position:absolute;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(2px);opacity:0;transition:opacity .25s}
   #settings-panel.open #settings-bg{opacity:1}
-  #settings-sheet{position:absolute;bottom:0;left:0;right:0;background:#1a1710;border-radius:18px 18px 0 0;padding:20px 20px 32px;transform:translateY(100%);transition:transform .3s cubic-bezier(.22,1,.36,1)}
+  #settings-sheet{position:absolute;bottom:0;left:0;right:0;background:#1a1710;border-radius:18px 18px 0 0;padding:20px 20px 32px;transform:translateY(100%);transition:transform .3s cubic-bezier(.22,1,.36,1);max-height:90dvh;overflow-y:auto;scrollbar-width:none}
   body.light #settings-sheet{background:#ffffff;border-top:1.5px solid #cbd5e1}
   body.light #settings-pill{background:#bfdbfe}
   #settings-panel.open #settings-sheet{transform:translateY(0)}
