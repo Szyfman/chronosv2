@@ -366,7 +366,9 @@ function attemptPlacement(idx){
     document.getElementById('streak-val').textContent=streak;
     var _pv=document.getElementById('placed-val');if(_pv)_pv.textContent=timeline.length;
     setTimeout(()=>{const cards=document.querySelectorAll('.timeline-card');if(cards[idx])cards[idx].scrollIntoView({behavior:'smooth',block:'center'});},100);
-    _pendingDraw=true;showFeedback(true,null);showFact(card,false);
+    _pendingDraw=true;showFeedback(true,null);
+    if(typeof _showPlacedTrivia==='undefined'||_showPlacedTrivia){showFact(card,false);}
+    else{_pendingDraw=false;drawCard();}
   } else {
     SFX.play('wrong');
     streak=0;document.getElementById('streak-val').textContent=streak;

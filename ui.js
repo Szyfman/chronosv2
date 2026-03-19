@@ -245,6 +245,8 @@ function dzAt(x,y){
 
 var _feedbackTimer=null;
 var _justPlaced=false;
+var _showPlacedTrivia=true;
+(function(){ try{ var v=localStorage.getItem('chronos_placed_trivia'); if(v==='false')_showPlacedTrivia=false; }catch(e){} })();
 function showFeedback(ok,hint){
   const el=document.getElementById('feedback');el.className='';
   if(ok){el.textContent=t('correct');}
@@ -1025,6 +1027,12 @@ function updateSettingsUI() {
   document.getElementById('sett-lang-lbl').textContent = lang === 'pt' ? 'Idioma' : 'Language';
   document.getElementById('settings-title').textContent = lang === 'pt' ? '⚙ Configurações' : '⚙ Settings';
   document.getElementById('settings-close').textContent = lang === 'pt' ? 'Fechar' : 'Close';
+  var ptOn=document.getElementById('sopt-placed-trivia-on');
+  var ptOff=document.getElementById('sopt-placed-trivia-off');
+  if(ptOn) ptOn.classList.toggle('on',_showPlacedTrivia);
+  if(ptOff) ptOff.classList.toggle('on',!_showPlacedTrivia);
+  var ptLbl=document.getElementById('sett-placed-trivia-lbl');
+  if(ptLbl) ptLbl.textContent=lang==='pt'?'Trivia ao Colocar':'Trivia on Placement';
   // settings btn is icon-only ⚙
 }
 
@@ -1032,6 +1040,12 @@ function setTheme(mode) {
   lightMode = (mode === 'light');
   try { localStorage.setItem('chronos_theme', mode); } catch(e) {}
   applyTheme();
+  updateSettingsUI();
+}
+
+function togglePlacedTrivia(val){
+  _showPlacedTrivia = (val === undefined) ? !_showPlacedTrivia : !!val;
+  try{ localStorage.setItem('chronos_placed_trivia',_showPlacedTrivia); }catch(e){}
   updateSettingsUI();
 }
 
