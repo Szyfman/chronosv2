@@ -312,6 +312,8 @@
   /* FACT PANEL */
   #fact-panel{position:fixed;bottom:0;left:50%;transform:translateX(-50%) translateY(100%);width:100%;max-width:420px;background:var(--bg3);border-top:1px solid var(--gold-dim);border-radius:16px 16px 0 0;padding:15px 20px 30px;z-index:500;transition:transform .4s cubic-bezier(.22,1,.36,1)}
   #fact-panel.open{transform:translateX(-50%) translateY(0)}
+  #fp-backdrop{position:fixed;inset:0;z-index:499;display:none}
+  #fp-backdrop.open{display:block}
   #fp-tag{font-size:.46rem;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:8px}
   #fp-tag::after{content:'';flex:1;height:1px;background:rgba(201,168,76,.2)}
   #fp-name{font-weight:700;font-family:'Inter',sans-serif;font-size:1.08rem;color:var(--gold);margin-bottom:2px}
