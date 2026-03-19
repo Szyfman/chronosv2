@@ -267,6 +267,7 @@ function showFact(card,isReview){
   document.getElementById('fp-btn').textContent=isReview?t('fp_close'):t('fp_continue');
   fp.classList.toggle('review-mode',isReview);
   fp.classList.add('open');
+  document.getElementById('fp-backdrop').classList.add('open');
 }
 function reviewCard(card){
   // Tap on a placed card in the timeline → show its fact in review mode
@@ -276,6 +277,7 @@ function reviewCard(card){
 function closeFact(){
   document.getElementById('fact-panel').classList.remove('open');
   document.getElementById('fact-panel').classList.remove('review-mode');
+  document.getElementById('fp-backdrop').classList.remove('open');
   _currentFactCard=null;
   const wasReview=reviewMode;
   reviewMode=false;
@@ -1198,6 +1200,33 @@ window.addEventListener('DOMContentLoaded', function() {
   // Keyboard shortcuts
   document.addEventListener('keydown', e => { if(e.key==='Escape'){closeFact();closeConfirm();cancelDel();} });
   document.addEventListener('touchmove', e => { if(isDragging)e.preventDefault(); }, {passive:false});
+  // Drag-down to dismiss fact panel
+  (function(){
+    var fp=document.getElementById('fact-panel');
+    var _startY=0,_dragging=false;
+    fp.addEventListener('pointerdown',function(e){
+      if(e.target.id==='fp-btn')return;
+      _startY=e.clientY;_dragging=true;
+      fp.style.transition='none';
+    });
+    fp.addEventListener('pointermove',function(e){
+      if(!_dragging)return;
+      var dy=Math.max(0,e.clientY-_startY);
+      fp.style.transform='translateX(-50%) translateY('+dy+'px)';
+    });
+    fp.addEventListener('pointerup',function(e){
+      if(!_dragging)return;_dragging=false;
+      fp.style.transition='';
+      var dy=e.clientY-_startY;
+      if(dy>80){closeFact();}
+      else{fp.style.transform=fp.classList.contains('open')?'translateX(-50%) translateY(0)':'translateX(-50%) translateY(100%)';}
+    });
+    fp.addEventListener('pointercancel',function(){
+      if(!_dragging)return;_dragging=false;
+      fp.style.transition='';
+      fp.style.transform=fp.classList.contains('open')?'translateX(-50%) translateY(0)':'translateX(-50%) translateY(100%)';
+    });
+  })();
   // Set initial mode UI state
   selectMode('classic');
   updateIntroHistBtn();

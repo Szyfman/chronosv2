@@ -411,6 +411,14 @@
   .tut-text strong{color:var(--cream);font-weight:400}
   #tut-btn{margin-top:18px;padding:11px 32px;background:#9a6abf;border:none;border-radius:4px;color:#fff;font-family:'Inter',sans-serif;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:opacity .2s}
   #tut-btn:hover{opacity:.85}
+  body.light #tutorial{background:#ffffff}
+  body.light #tut-title{color:#1d4ed8}
+  body.light #tut-sub{color:#0f172a}
+  body.light .tut-num{background:#dbeafe;border-color:#93c5fd;color:#1d4ed8}
+  body.light .tut-text{color:#0f172a}
+  body.light .tut-text strong{color:#0f172a;font-weight:700}
+  body.light #tut-btn{background:#1d4ed8;color:#ffffff}
+  body.light #tut-btn:hover{background:#1e40af;opacity:1}
   .mc-badge{display:inline-block;font-size:.4rem;letter-spacing:.12em;text-transform:uppercase;border-radius:20px;padding:2px 6px;margin-bottom:5px}
   .mc-badge.classic{background:rgba(201,168,76,.12);color:var(--gold);border:1px solid rgba(201,168,76,.3)}
   .mc-badge.free{background:rgba(74,122,184,.12);color:var(--blue);border:1px solid rgba(74,122,184,.3)}
@@ -684,6 +692,7 @@
   body.light .tcard-desc{color:#475569}
   body.light .tc.earned .tcard-desc{color:#334155}
   .tcard-date{font-size:.5rem;color:rgba(201,168,76,.38);font-family:Inter,sans-serif;margin-top:1px;font-style:italic}
+  body.light .tcard-date{color:#0f172a}
   .tcard-lock{position:absolute;top:7px;right:8px;font-size:.6rem;opacity:.25}
   .tc.earned .tcard-lock{display:none}
   /* Trophy unlock toast */
@@ -781,8 +790,8 @@
   body.light #cp-filt-toggle:hover{border-color:#1d4ed8;color:#1d4ed8}
   body.light #cp-filt-toggle.active{border-color:#1d4ed8;color:#1d4ed8;background:#dbeafe}
   body.light #cp-filt-toggle{color:#1e40af;border-color:#bfdbfe}
-  body.light .panel-settings-btn{border-color:rgba(100,80,30,.2);color:rgba(100,80,30,.5)}
-  body.light .panel-settings-btn:hover{border-color:#1d4ed8;color:#1d4ed8}
+  body.light .panel-settings-btn{background:#f1f5f9;border:1.5px solid #bfdbfe;color:#1e40af}
+  body.light .panel-settings-btn:hover{border-color:#1d4ed8;color:#1d4ed8;background:#dbeafe}
   /* ── LIGHT MODE: HISTORY / COMPENDIUM / TROPHY panels ── */
   body.light #history-panel{background:#f8fafc;color:#0f172a}
   body.light .history-hdr{background:#ffffff;border-bottom:1.5px solid #cbd5e1}
@@ -1129,6 +1138,7 @@
 <!-- STREAK BONUS TOAST -->
 <div id="streak-toast"></div>
 
+<div id="fp-backdrop" onclick="closeFact()"></div>
 <!-- FACT PANEL -->
 <div id="fact-panel">
   <div id="fp-tag">Historical Insight</div>
