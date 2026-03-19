@@ -2,10 +2,10 @@
 // All UI rendering, panel management, drag/drop, and audio controls.
 // Depends on: state.js, i18n.js, game.js (cardYear, isInterval, etc.)
 // ─────────────────────────────────────────────────────────────────────────
-
+ 
 // ── ERA COLORS ────────────────────────────────────────────────────────────
 
-
+ 
 function selectMode(m){
   gameMode=m;
   document.getElementById('mc-classic').classList.toggle('selected',m==='classic');
@@ -66,7 +66,7 @@ function restartGame(){
     showIntro();
   }
 }
-
+ 
 // ── CONFIRM END ───────────────────────────────────────────────────────────
 function confirmEnd(){
   if(!gameActive)return;
@@ -78,7 +78,7 @@ function confirmEnd(){
 }
 function closeConfirm(){document.getElementById('confirm-dialog').classList.remove('show');}
 function doEndRun(){closeConfirm();_voluntaryEnd=true;endGame(false);}
-
+ 
 // ── GAME INIT ─────────────────────────────────────────────────────────────
 function drawCard(){
   if(!deck.length){endGame(true);return;}
@@ -153,7 +153,7 @@ function makeDZ(idx){
   d.addEventListener('click',()=>{if(!isDragging&&currentCard){SFX.play('drop');attemptPlacement(idx);}});
   return d;
 }
-
+ 
 // ── HINTS & SKIP ─────────────────────────────────────────────────────────
 function renderSideBtns(){
   const visible=timeline.length>0; // only show after first card placed
@@ -183,7 +183,7 @@ function showStreakToast(){
   if(_toastTimer)clearTimeout(_toastTimer);
   _toastTimer=setTimeout(()=>el.classList.remove('show'),2600);
 }
-
+ 
 // ── DRAG ──────────────────────────────────────────────────────────────────
 var ghost; // assigned in DOMContentLoaded below
 function startDrag(e){
@@ -227,7 +227,7 @@ function dzAt(x,y){
   }
   return null;
 }
-
+ 
 var _feedbackTimer=null;
 function showFeedback(ok,hint){
   const el=document.getElementById('feedback');el.className='';
@@ -242,7 +242,7 @@ function showFeedback(ok,hint){
   clearTimeout(_feedbackTimer);
   _feedbackTimer=setTimeout(()=>el.className='',2400);
 }
-
+ 
 // ── FACT PANEL ────────────────────────────────────────────────────────────
 function showFact(card,isReview){
   reviewMode=!!isReview;
@@ -267,7 +267,6 @@ function showFact(card,isReview){
   document.getElementById('fp-btn').textContent=isReview?t('fp_close'):t('fp_continue');
   fp.classList.toggle('review-mode',isReview);
   fp.classList.add('open');
-  document.getElementById('fp-backdrop').classList.add('open');
 }
 function reviewCard(card){
   // Tap on a placed card in the timeline → show its fact in review mode
@@ -277,7 +276,6 @@ function reviewCard(card){
 function closeFact(){
   document.getElementById('fact-panel').classList.remove('open');
   document.getElementById('fact-panel').classList.remove('review-mode');
-  document.getElementById('fp-backdrop').classList.remove('open');
   _currentFactCard=null;
   const wasReview=reviewMode;
   reviewMode=false;
@@ -285,7 +283,7 @@ function closeFact(){
   // (b) this was a review that interrupted a pending post-placement panel
   if(gameActive&&(!wasReview||_pendingDraw)){_pendingDraw=false;drawCard();}
 }
-
+ 
 function openHistory(){
   if(gameActive)return;
   _fromGameover=false;
@@ -339,8 +337,8 @@ function toggleEntry(i){
   const ht=document.getElementById(`ht-${i}`),chev=document.getElementById(`chev-${i}`);
   const open=ht.classList.toggle('open');chev.classList.toggle('open',open);
 }
-
-
+ 
+ 
 // ── HISTORY TABS ──────────────────────────────────────────────────────────
 var _hpTab = 'timelines';
 function switchHpTab(tab){
@@ -353,18 +351,18 @@ function switchHpTab(tab){
   document.getElementById('hp-streak').style.display = tab==='streak' ? 'flex' : 'none';
   if(tab==='streak'){ _calViewYear=new Date().getFullYear(); _calViewMonth=new Date().getMonth(); renderStreakTab(); }
 }
-
+ 
 // ── RENDER STREAK TAB ─────────────────────────────────────────────────────
 function renderStreakTab(){
   var panel=document.getElementById('hp-streak');
   panel.innerHTML='';
   var st=_calcStreak();
-
+ 
   // ── Streak stats ──────────────────────────────────────────────────────
   var stats=document.createElement('div'); stats.className='streak-stats';
   stats.innerHTML='<div class="streak-stat"><div class="streak-stat-val">'+st.cur+'</div><div class="streak-stat-lbl">🔥 '+t('daily_current_streak')+'</div></div><div class="streak-divider"></div><div class="streak-stat"><div class="streak-stat-val">'+st.longest+'</div><div class="streak-stat-lbl">⭐ '+t('daily_longest_streak')+'</div></div>';
   panel.appendChild(stats);
-
+ 
   // ── This week grid ────────────────────────────────────────────────────
   var today=new Date(); today.setHours(0,0,0,0);
   var dow=today.getDay();
@@ -382,7 +380,7 @@ function renderStreakTab(){
     week.appendChild(dc);
   }
   panel.appendChild(week);
-
+ 
   // ── Play button ───────────────────────────────────────────────────────
   var doneToday=_todayDone();
   var btn=document.createElement('button');
@@ -396,23 +394,23 @@ function renderStreakTab(){
     msg.textContent=t('daily_comeback');
     panel.appendChild(msg);
   }
-
+ 
   // ── Monthly calendar with prev/next navigation ───────────────────────
   var calTitle=document.createElement('div'); calTitle.className='dc-section-title';
   calTitle.textContent=lang==='pt'?'📅 Calendário de Desafios':'📅 Challenge Calendar';
   panel.appendChild(calTitle);
-
+ 
   var calWrap=document.createElement('div'); calWrap.className='dc-cal-wrap';
   calWrap.id='dc-cal-wrap';
   panel.appendChild(calWrap);
   _renderCalMonth(_calViewYear, _calViewMonth);
 }
-
+ 
 // ── Calendar navigation state ─────────────────────────────────────────────
 var _CAL_MIN_YEAR=2026; var _CAL_MIN_MONTH=2; // March 2026 (0-indexed)
 var _calViewYear  = new Date().getFullYear();
 var _calViewMonth = new Date().getMonth(); // 0-indexed
-
+ 
 function _calNav(dir){
   _calViewMonth += dir;
   if(_calViewMonth > 11){ _calViewMonth=0; _calViewYear++; }
@@ -423,21 +421,21 @@ function _calNav(dir){
   }
   _renderCalMonth(_calViewYear, _calViewMonth);
 }
-
+ 
 function _renderCalMonth(yr, mo){
   var wrap=document.getElementById('dc-cal-wrap');
   if(!wrap) return;
   wrap.innerHTML='';
-
+ 
   var today=new Date(); today.setHours(0,0,0,0);
   var nowYr=today.getFullYear(); var nowMo=today.getMonth();
   var isFuture=(yr>nowYr)||(yr===nowYr&&mo>nowMo);
-
+ 
   var monthDate=new Date(yr,mo,1);
   var monthName=monthDate.toLocaleDateString(lang==='pt'?'pt-BR':'en-US',{month:'long',year:'numeric'});
-
+ 
   var mBlock=document.createElement('div'); mBlock.className='dc-month-block';
-
+ 
   // ── Nav header ──────────────────────────────────────────────────────────
   var nav=document.createElement('div'); nav.className='dc-month-nav';
   var isAtMin=(yr===_CAL_MIN_YEAR&&mo===_CAL_MIN_MONTH);
@@ -453,7 +451,7 @@ function _renderCalMonth(yr, mo){
   nextBtn.onclick=function(){ if(!isFuture) _calNav(1); };
   nav.appendChild(prevBtn); nav.appendChild(mTitle); nav.appendChild(nextBtn);
   mBlock.appendChild(nav);
-
+ 
   // ── Day-of-week header ──────────────────────────────────────────────────
   var hdr=document.createElement('div'); hdr.className='dc-cal-grid';
   var hdNames=lang==='pt'?['S','T','Q','Q','S','S','D']:['M','T','W','T','F','S','S'];
@@ -462,7 +460,7 @@ function _renderCalMonth(yr, mo){
     hdr.appendChild(h);
   });
   mBlock.appendChild(hdr);
-
+ 
   // ── Calendar grid ────────────────────────────────────────────────────────
   var grid=document.createElement('div'); grid.className='dc-cal-grid';
   var firstDow=monthDate.getDay();
@@ -490,22 +488,22 @@ function _renderCalMonth(yr, mo){
   mBlock.appendChild(grid);
   wrap.appendChild(mBlock);
 }
-
-
+ 
+ 
 function _toggleCalPicker(curYr, curMo, mBlock){
   var existing=mBlock.querySelector('.dc-picker');
   if(existing){ existing.remove(); return; }
-
+ 
   var today=new Date(); var nowYr=today.getFullYear(); var nowMo=today.getMonth();
   var selYr=curYr; var selMo=curMo;
-
+ 
   var monthNames=lang==='pt'
     ?['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro']
     :['January','February','March','April','May','June','July','August','September','October','November','December'];
-
+ 
   var picker=document.createElement('div'); picker.className='dc-picker';
   var cols=document.createElement('div'); cols.className='dc-picker-cols';
-
+ 
   // ── Build a drum-roll column: 3 visible items, center = selected ─────
   function makeCol(items, selectedIdx, onSelect){
     var col=document.createElement('div'); col.className='dc-picker-col';
@@ -532,7 +530,7 @@ function _toggleCalPicker(curYr, curMo, mBlock){
     setTimeout(function(){ col.scrollTop=selectedIdx*40; },0);
     return col;
   }
-
+ 
   // ── Month column ─────────────────────────────────────────────────────
   var moItems=monthNames.map(function(name,i){
     var tooEarly=(selYr===_CAL_MIN_YEAR&&i<_CAL_MIN_MONTH);
@@ -542,7 +540,7 @@ function _toggleCalPicker(curYr, curMo, mBlock){
   var moCol=makeCol(moItems, selMo, function(i, val){
     selMo=val;
   });
-
+ 
   // ── Year column ──────────────────────────────────────────────────────
   var yrItems=[];
   for(var y=_CAL_MIN_YEAR;y<=nowYr;y++) yrItems.push({label:String(y),value:y,disabled:false});
@@ -564,11 +562,11 @@ function _toggleCalPicker(curYr, curMo, mBlock){
       }
     });
   });
-
+ 
   cols.appendChild(moCol);
   cols.appendChild(yrCol);
   picker.appendChild(cols);
-
+ 
   // ── Confirm button ────────────────────────────────────────────────────
   var confirm=document.createElement('button'); confirm.className='dc-picker-confirm';
   confirm.textContent=lang==='pt'?'Confirmar':'Confirm';
@@ -577,7 +575,7 @@ function _toggleCalPicker(curYr, curMo, mBlock){
     _renderCalMonth(selYr, selMo);
   };
   picker.appendChild(confirm);
-
+ 
   var hdr=mBlock.querySelector('.dc-cal-grid');
   mBlock.insertBefore(picker, hdr);
 }
@@ -605,7 +603,7 @@ function toggleDailyEntry(cellEl, rec, day, yr, mo){
   // Insert after the grid row containing the cell
   cellEl.closest('.dc-month-block').appendChild(panel);
 }
-
+ 
 // ── DAILY CHALLENGE ───────────────────────────────────────────────────────
 // ── DELETE HISTORY ENTRIES ────────────────────────────────────────────────
 let _delIdx=null;
@@ -614,7 +612,7 @@ function askDeleteEntry(i){
   document.getElementById('del-msg').textContent=t('del_one');
   document.getElementById('del-backdrop').classList.add('show');
 }
-
+ 
 function cancelDel(){document.getElementById('del-backdrop').classList.remove('show');_delIdx=null;}
 function confirmDel(){
   if(_delIdx!==null) gameHistory.splice(_delIdx,1);
@@ -623,12 +621,12 @@ function confirmDel(){
   _delIdx=null;
   renderHistoryPanel();
 }
-
+ 
 // ── COMPENDIUM ────────────────────────────────────────────────────────────
 var cpFilt = 'all';
 var cpEra = 'all';
 var cpFiltVisible = false;
-
+ 
 function openCompendium() {
   var el = document.getElementById('cp-q');
   if (el) el.value = '';
@@ -649,7 +647,7 @@ function openCompendium() {
   renderCP();
   document.getElementById('cp').classList.add('open');
 }
-
+ 
 function closeCompendium() {
   document.getElementById('cp').classList.remove('open');
   if (!gameActive) {
@@ -658,21 +656,21 @@ function closeCompendium() {
     if(_fromCultures){ _fromCultures=false; openCultures(); } else { showIntro(); }
   }
 }
-
+ 
 function setCpFilt(btn) {
   cpFilt = btn.dataset.f;
   document.querySelectorAll('.cp-chip').forEach(function(b){ b.classList.remove('on'); });
   btn.classList.add('on');
   renderCP();
 }
-
+ 
 function setCpEra(btn) {
   cpEra = btn.dataset.e;
   document.querySelectorAll('.cp-era-chip').forEach(function(b){ b.classList.remove('on'); });
   btn.classList.add('on');
   renderCP();
 }
-
+ 
 function toggleCpFilt() {
   cpFiltVisible = !cpFiltVisible;
   var filt = document.getElementById('cp-filt');
@@ -680,18 +678,18 @@ function toggleCpFilt() {
   if (filt) filt.style.display = cpFiltVisible ? '' : 'none';
   if (btn) btn.classList.toggle('active', cpFiltVisible);
 }
-
+ 
 function esc(s) {
   return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
-
+ 
 function renderCP() {
   // Clear list immediately — prevents stale content on Android WebView
   var list = document.getElementById('cp-list');
   if (list) list.innerHTML = '';
-
+ 
   var q = ((document.getElementById('cp-q') || {}).value || '').toLowerCase().trim();
-
+ 
   var all = [];
   CARDS.forEach(function(c){ if(c && typeof c.name === 'string') all.push(c); });
   INTERVALS.forEach(function(c){ if(c && typeof c.name === 'string') all.push(c); });
@@ -700,7 +698,7 @@ function renderCP() {
     var yb = b.startYear !== undefined ? b.startYear : (b.year || 0);
     return ya - yb;
   });
-
+ 
   // Update era chip labels for language
   var eraChipLabels = lang==='pt'
     ? {all:'Todas', ancient:'Antiguidade', medieval:'Medieval', modern:'Moderno'}
@@ -708,7 +706,7 @@ function renderCP() {
   document.querySelectorAll('.cp-era-chip').forEach(function(b){
     if(eraChipLabels[b.dataset.e]) b.textContent = eraChipLabels[b.dataset.e];
   });
-
+ 
   // Update type chip labels for language
   var typeChipLabels = lang==='pt'
     ? {all:'Todos', people:'Pessoas', events:'Eventos', empires:'Impérios', biblical:'Bíblico'}
@@ -716,20 +714,20 @@ function renderCP() {
   document.querySelectorAll('.cp-chip').forEach(function(b){
     if(typeChipLabels[b.dataset.f]) b.textContent = typeChipLabels[b.dataset.f];
   });
-
+ 
   // Update filter section labels
   var flTypeLbl = document.getElementById('cfl-type');
   var flEraLbl = document.getElementById('cfl-era');
   if(flTypeLbl) flTypeLbl.textContent = lang==='pt' ? 'TIPO' : 'TYPE';
   if(flEraLbl) flEraLbl.textContent = lang==='pt' ? 'ERA' : 'ERA';
-
+ 
   var CP_ERA_MAP = {
     ancient:  ['Ancient','Classical'],
     medieval: ['Medieval','Renaissance'],
     modern:   ['Early Modern','Modern','Contemporary']
   };
   var cpEraList = (typeof cpEra !== 'undefined' && cpEra !== 'all') ? CP_ERA_MAP[cpEra] : null;
-
+ 
   var filtered = all.filter(function(c) {
     var iv = c.startYear !== undefined;
     if (cpFilt === 'people'   && c.cat !== 'People') return false;
@@ -742,7 +740,7 @@ function renderCP() {
     }
     return true;
   });
-
+ 
   // Update discovered count to reflect active filters
   var discoveredInFilter = 0;
   filtered.forEach(function(c){ if(discoveredCards.has(c.name)) discoveredInFilter++; });
@@ -762,34 +760,34 @@ function renderCP() {
         + (lang==='pt' ? ' descobertos' : ' discovered');
     }
   }
-
+ 
   if (!list) return;
-
+ 
   if (!filtered.length) {
     list.innerHTML = '<p style="text-align:center;color:#9a9080;padding:40px 20px;font-family:Inter,sans-serif;font-size:.9rem">'+(lang==='pt'?'Nenhuma carta encontrada.':'No cards match.')+'</p>';
     return;
   }
-
+ 
   var rows = [];  filtered.forEach(function(card) {
     var iv   = card.startYear !== undefined;
     var disc = discoveredCards.has(card.name);
     var sid  = 'ck_' + card.name.replace(/[^a-z0-9]/gi, '_');
     var col  = ERA_COLORS[card.era] || '#888';
-
+ 
     var nm = disc
       ? esc(lang === 'pt' ? (card.name_pt || card.name) : card.name)
       : '?????';
-
+ 
     var yr = disc
       ? (iv
           ? (Math.abs(card.startYear) + (card.startYear < 0 ? ' BCE' : ' CE') + ' \u2013 ' + Math.abs(card.endYear) + (card.endYear < 0 ? ' BCE' : ' CE'))
           : (Math.abs(card.year) + (card.year < 0 ? ' BCE' : ' CE')))
       : '????';
-
+ 
     var meta = esc(disc
       ? (card.era + ' \u00b7 ' + (iv ? 'Empire/Era' : (lang === 'pt' ? (card.cat_pt || card.cat) : card.cat)))
       : card.era);
-
+ 
     var h = '';
     h += '<div class="ck">';
     h += '<div class="ck-h" onclick="toggleCK(&#39;' + sid + '&#39;)">';
@@ -803,7 +801,7 @@ function renderCP() {
     h += '<div class="ck-a" id="ka_' + sid + '">\u203a</div>';
     h += '</div>';
     h += '</div>'; /* end ck-h */
-
+ 
     h += '<div class="ck-b" id="' + sid + '"><div class="ck-i">';
     if (disc) {
       var hint  = lang === 'pt' ? (card.hint_pt  || card.hint  || '') : (card.hint  || '');
@@ -822,10 +820,10 @@ function renderCP() {
     h += '</div></div></div>';
     rows.push(String(h));
   });
-
+ 
   list.innerHTML = rows.join('');
 }
-
+ 
 function toggleCK(sid) {
   var body = document.getElementById(sid);
   var arr  = document.getElementById('ka_' + sid);
@@ -839,8 +837,8 @@ function toggleCK(sid) {
     setTimeout(function(){ body.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 60);
   }
 }
-
-
+ 
+ 
 // ── THEME ─────────────────────────────────────────────────────────────────
 let lightMode=false;
 try{lightMode=localStorage.getItem('chronos_theme')==='light';}catch(e){}
@@ -854,7 +852,7 @@ function toggleTheme(){
   if(typeof updateSettingsUI==='function')updateSettingsUI();
 }
 // ── TROPHY SYSTEM ─────────────────────────────────────────────────────────
-
+ 
 function _showTrophyToastQueue(list, idx){
   if(idx >= list.length) return;
   var def = list[idx];
@@ -868,7 +866,7 @@ function _showTrophyToastQueue(list, idx){
     setTimeout(function(){ _showTrophyToastQueue(list, idx+1); }, 500);
   }, 3200);
 }
-
+ 
 function openTrophies(){
   renderTrophies();
   document.getElementById('tp').classList.add('open');
@@ -879,12 +877,12 @@ function closeTrophies(){
     if(_fromCultures){ _fromCultures=false; openCultures(); } else { showIntro(); }
   }
 }
-
+ 
 function renderTrophies(){
   var earnedCount = Object.keys(earnedTrophies).length;
   var cntEl = document.getElementById('tp-cnt');
   if(cntEl) cntEl.textContent = earnedCount + ' / ' + TROPHY_DEFS.length + ' earned';
-
+ 
   var html = '';
   TROPHY_DEFS.forEach(function(def, i){
     var isEarned = !!earnedTrophies[def.id];
@@ -907,16 +905,16 @@ function renderTrophies(){
   });
   document.getElementById('tp-list').innerHTML = html;
 }
-
+ 
 function openTrophyModal(idx){
   var def = TROPHY_DEFS[idx];
   var isEarned = !!earnedTrophies[def.id];
   var modal = document.getElementById('tp-modal');
   var bg = document.getElementById('tp-modal-bg');
-
+ 
   // Icon
   document.getElementById('tp-modal-icon').textContent = def.icon;
-
+ 
   // Badge
   var badge = document.getElementById('tp-modal-badge');
   if(isEarned){
@@ -926,10 +924,10 @@ function openTrophyModal(idx){
     badge.textContent = lang==='pt' ? '🔒 Bloqueado' : '🔒 Locked';
     badge.className = 'locked-badge';
   }
-
+ 
   // Name
   document.getElementById('tp-modal-name').textContent = lang==='pt' ? def.name_pt : def.name;
-
+ 
   // Date
   var dateEl = document.getElementById('tp-modal-date');
   if(isEarned){
@@ -941,14 +939,14 @@ function openTrophyModal(idx){
   } else {
     dateEl.textContent = '';
   }
-
+ 
   // Section label and body
   var lbl = document.getElementById('tp-modal-section-lbl');
   var body = document.getElementById('tp-modal-body');
   var divider = document.getElementById('tp-modal-divider');
   var reqLbl = document.getElementById('tp-modal-req-lbl');
   var reqBody = document.getElementById('tp-modal-req-body');
-
+ 
   if(isEarned){
     // Primary: trivia
     lbl.textContent = lang==='pt' ? '✦ Curiosidade histórica' : '✦ Historical Trivia';
@@ -973,35 +971,35 @@ function openTrophyModal(idx){
     reqLbl.style.display = 'none';
     reqBody.style.display = 'none';
   }
-
+ 
   // Close button text
   document.getElementById('tp-modal-close').textContent = lang==='pt' ? 'Fechar' : 'Close';
-
+ 
   // Earned class
   modal.classList.toggle('earned-modal', isEarned);
-
+ 
   // Open
   bg.classList.add('open');
   modal.classList.add('open');
 }
-
+ 
 function closeTrophyModal(){
   document.getElementById('tp-modal').classList.remove('open');
   document.getElementById('tp-modal-bg').classList.remove('open');
 }
-
-
+ 
+ 
 // ── SETTINGS PANEL ───────────────────────────────────────────────────────
-
+ 
 function openSettings() {
   updateSettingsUI();
   document.getElementById('settings-panel').classList.add('open');
 }
-
+ 
 function closeSettings() {
   document.getElementById('settings-panel').classList.remove('open');
 }
-
+ 
 function updateSettingsUI() {
   document.getElementById('sopt-dark').classList.toggle('on', !lightMode);
   document.getElementById('sopt-light').classList.toggle('on', lightMode);
@@ -1013,18 +1011,18 @@ function updateSettingsUI() {
   document.getElementById('settings-close').textContent = lang === 'pt' ? 'Fechar' : 'Close';
   // settings btn is icon-only ⚙
 }
-
+ 
 function setTheme(mode) {
   lightMode = (mode === 'light');
   try { localStorage.setItem('chronos_theme', mode); } catch(e) {}
   applyTheme();
   updateSettingsUI();
 }
-
-
+ 
+ 
 // ── CULTURES HUB ─────────────────────────────────────────────────────────
 let cultureMode='abrahamic', cultureLivesMode=true, _fromCultures=false;
-
+ 
 function openCultures(){
   document.getElementById('intro').classList.remove('show');
   document.getElementById('cultures-screen').classList.add('show');
@@ -1032,25 +1030,25 @@ function openCultures(){
   document.getElementById('clo-lives').classList.toggle('active', cultureLivesMode);
   document.getElementById('clo-free').classList.toggle('active', !cultureLivesMode);
 }
-
+ 
 function closeCultures(){
   document.getElementById('cultures-screen').classList.remove('show');
   showIntro();
 }
-
+ 
 function selectCultureMode(m){
   cultureMode = m;
   document.getElementById('mc-biblical').classList.toggle('selected', m==='abrahamic');
   document.getElementById('mc-roman').classList.toggle('selected', m==='roman');
   document.getElementById('mc-eastern').classList.toggle('selected', m==='eastern');
 }
-
+ 
 function selectCultureLives(on){
   cultureLivesMode = on;
   document.getElementById('clo-lives').classList.toggle('active', on);
   document.getElementById('clo-free').classList.toggle('active', !on);
 }
-
+ 
 function startCultureGame(){
   gameMode = cultureMode;
   livesMode = cultureLivesMode;
@@ -1061,18 +1059,18 @@ function startCultureGame(){
   document.getElementById('intro').classList.remove('show');
   initGame();
 }
-
-
+ 
+ 
 // ══════════════════════════════════════════════════════════════════════════
 // AUDIO ENGINE
 // ══════════════════════════════════════════════════════════════════════════
-
+ 
 // ── State (persisted to localStorage) ────────────────────────────────────
 var _musicVol  = 40;   // 0–100
 var _sfxVol    = 80;   // 0–100
 var _musicMute = false;
 var _sfxMute   = false;
-
+ 
 (function _loadAudioPrefs() {
   try {
     var mv = localStorage.getItem('chronos_music_vol');
@@ -1085,12 +1083,12 @@ var _sfxMute   = false;
     if (sm !== null) _sfxMute   = sm === 'true';
   } catch(e) {}
 })();
-
+ 
 // ── Background music ──────────────────────────────────────────────────────
 var _bgm = null;
 var _bgmReady = false;
 var _bgmFadeTimer = null;
-
+ 
 function _initBGM() {
   if (_bgm) return;
   _bgm = new Audio(BGM_BASE64);
@@ -1103,7 +1101,7 @@ function _initBGM() {
   });
   _bgmReady = true;
 }
-
+ 
 function playMusic() {
   _initBGM();
   if (!_bgm) return;
@@ -1113,7 +1111,7 @@ function playMusic() {
     _bgm.play().catch(function() {});
   }
 }
-
+ 
 function stopMusic(fade) {
   if (!_bgm || _bgm.paused) return;
   if (!fade) { _bgm.pause(); return; }
@@ -1128,7 +1126,7 @@ function stopMusic(fade) {
     if (i >= steps) { clearInterval(_bgmFadeTimer); _bgm.pause(); _bgm.volume = _musicMute ? 0 : _musicVol / 100; }
   }, 50);
 }
-
+ 
 function fadeInMusic() {
   _initBGM();
   if (!_bgm) return;
@@ -1144,7 +1142,7 @@ function fadeInMusic() {
     if (i >= steps) clearInterval(_bgmFadeTimer);
   }, 50);
 }
-
+ 
 // ── Volume / mute controls ────────────────────────────────────────────────
 function setMusicVolume(val) {
   _musicVol = parseInt(val);
@@ -1152,26 +1150,26 @@ function setMusicVolume(val) {
   if (_bgm && !_musicMute) _bgm.volume = _musicVol / 100;
   _updateAudioUI();
 }
-
+ 
 function setSfxVolume(val) {
   _sfxVol = parseInt(val);
   try { localStorage.setItem('chronos_sfx_vol', _sfxVol); } catch(e) {}
   _updateAudioUI();
 }
-
+ 
 function toggleMusicMute() {
   _musicMute = !_musicMute;
   try { localStorage.setItem('chronos_music_mute', _musicMute); } catch(e) {}
   if (_bgm) _bgm.volume = _musicMute ? 0 : _musicVol / 100;
   _updateAudioUI();
 }
-
+ 
 function toggleSfxMute() {
   _sfxMute = !_sfxMute;
   try { localStorage.setItem('chronos_sfx_mute', _sfxMute); } catch(e) {}
   _updateAudioUI();
 }
-
+ 
 function _updateAudioUI() {
   var ms = document.getElementById('music-vol-slider');
   var ss = document.getElementById('sfx-vol-slider');
@@ -1182,14 +1180,14 @@ function _updateAudioUI() {
   if (mb) { mb.textContent = _musicMute ? 'OFF' : 'ON'; mb.classList.toggle('muted', _musicMute); }
   if (sb) { sb.textContent = _sfxMute  ? 'OFF' : 'ON'; sb.classList.toggle('muted', _sfxMute);  }
 }
-
+ 
 // ── Page visibility: pause music when app backgrounds ─────────────────────
 document.addEventListener('visibilitychange', function() {
   if (!_bgm) return;
   if (document.hidden) { _bgm.pause(); }
   else { _bgm.play().catch(function(){}); }
 });
-
+ 
 // ── Consolidated init ─────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', function() {
   // Theme
@@ -1200,11 +1198,22 @@ window.addEventListener('DOMContentLoaded', function() {
   // Keyboard shortcuts
   document.addEventListener('keydown', e => { if(e.key==='Escape'){closeFact();closeConfirm();cancelDel();} });
   document.addEventListener('touchmove', e => { if(isDragging)e.preventDefault(); }, {passive:false});
+  // Tap outside fact panel closes it; exclude timeline cards (they open a new trivia themselves)
+  function _closeFactIfOpen(e){
+    var fp=document.getElementById('fact-panel');
+    if(!fp||!fp.classList.contains('open'))return;
+    if(fp.contains(e.target))return;
+    if(e.target.closest('.timeline-card'))return;
+    if(e.target.closest('.drop-zone'))return;
+    closeFact();
+  }
+  document.getElementById('timeline-area').addEventListener('click',_closeFactIfOpen);
+  document.getElementById('bottom-area').addEventListener('click',_closeFactIfOpen);
   // Set initial mode UI state
   selectMode('classic');
   updateIntroHistBtn();
 });
-
+ 
 window.addEventListener('load', function() {
   _updateAudioUI();
   // Patch updateSettingsUI to also refresh audio controls
