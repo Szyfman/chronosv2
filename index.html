@@ -919,8 +919,7 @@
 <script id="pwa-init">
 (function(){
   if('serviceWorker' in navigator){
-    var b=new Blob([atob('Y29uc3QgQ0FDSEU9J2Nocm9ub3MtdjMnO3NlbGYuYWRkRXZlbnRMaXN0ZW5lcignaW5zdGFsbCcsZT0+e2Uud2FpdFVudGlsKGNhY2hlcy5vcGVuKENBQ0hFKS50aGVuKGM9PmMuYWRkQWxsKFtzZWxmLmxvY2F0aW9uLmhyZWZ8fCcvJ10pLmNhdGNoKCgpPT57fSkpKTtzZWxmLnNraXBXYWl0aW5nKCk7fSk7c2VsZi5hZGRFdmVudExpc3RlbmVyKCdhY3RpdmF0ZScsZT0+e2Uud2FpdFVudGlsKGNhY2hlcy5rZXlzKCkudGhlbitrZXlzPT5Qcm9taXNlLmFsbChrZXlzLmZpbHRlcihrPT5rIT09Q0FDSEUpLm1hcChrPT5jYWNoZXMuZGVsZXRlKGspKSkpKTtzZWxmLmNsaWVudHMuY2xhaW0oKTt9KTtzZWxmLmFkZEV2ZW50TGlzdGVuZXIoJ2ZldGNoJyxlPT57ZS5yZXNwb25kV2l0aChjYWNoZXMubWF0Y2goZS5yZXF1ZXN0KS50aGVuKHI9PnJ8fGZldGNoKGUucmVxdWVzdCkudGhlbihyZXNwPT57Y29uc3QgY2w9cmVzcC5jbG9uZSgpO2NhY2hlcy5vcGVuKENBQ0hFKS50aGVuKGM9PmMucHV0KGUucmVxdWVzdCxjbCkpO3JldHVybiByZXNwO30pLmNhdGNoKCgpPT5jYWNoZXMubWF0Y2goZS5yZXF1ZXN0KSkpKTt9KTs=')],{type:'application/javascript'});
-    navigator.serviceWorker.register(URL.createObjectURL(b)).catch(function(){});
+    navigator.serviceWorker.register('./sw.js').catch(function(){});
   }
   var _dp;
   window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();_dp=e;setTimeout(function(){var b=document.getElementById('pwa-banner');if(b)b.style.display='flex';},2500);});

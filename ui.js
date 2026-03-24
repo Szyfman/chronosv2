@@ -247,13 +247,12 @@ var _feedbackTimer=null;
 var _justPlaced=false;
 var _showPlacedTrivia=true;
 (function(){ try{ var v=localStorage.getItem('chronos_placed_trivia'); if(v==='false')_showPlacedTrivia=false; }catch(e){} })();
-function showFeedback(ok,hint){
+function showFeedback(ok,hint,yearDelta){
   const el=document.getElementById('feedback');el.className='';
   if(ok){el.textContent=t('correct');}
   else{
-    if(hint==='earlier')el.textContent=t('wrong_earlier');
-    else if(hint==='later')el.textContent=t('wrong_later');
-    else el.textContent=t('wrong');
+    const band=yearDelta<100?'_close':yearDelta<500?'_off':'_far';
+    el.textContent=t('wrong_'+hint+band);
   }
   void el.offsetWidth;
   el.className=ok?'correct':'incorrect';

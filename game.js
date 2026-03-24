@@ -373,12 +373,23 @@ function attemptPlacement(idx){
     SFX.play('wrong');
     streak=0;document.getElementById('streak-val').textContent=streak;
     let hint='none';
+    let yearDelta=null;
     if(timeline.length>0){
       const firstNewerIdx=timeline.findIndex(c=>cy<cardYear(c));
       let correctSlot=firstNewerIdx===-1?timeline.length:firstNewerIdx;
       hint=correctSlot<idx?'earlier':'later';
+      // Find the neighbour at the attempted slot closest to the card's year
+      const nBefore=timeline[idx-1]?cardYear(timeline[idx-1]):null;
+      const nAfter=timeline[idx]?cardYear(timeline[idx]):null;
+      if(nBefore!==null&&nAfter!==null){
+        yearDelta=Math.min(Math.abs(cy-nBefore),Math.abs(cy-nAfter));
+      } else if(nBefore!==null){
+        yearDelta=Math.abs(cy-nBefore);
+      } else if(nAfter!==null){
+        yearDelta=Math.abs(cy-nAfter);
+      }
     }
-    showFeedback(false,hint);
+    showFeedback(false,hint,yearDelta);
     if(livesMode){
       lives--;renderLives();
       if(lives<=0)setTimeout(()=>endGame(false),700);
@@ -527,4 +538,3 @@ function modeBadgeLabel(mode,lm){
   if(mode==='characters')return t('characters_lbl')+lives;
   return t('classic_lbl')+lives;
 }
-
